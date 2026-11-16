@@ -157,6 +157,25 @@ export function editorHostOriginAfterSearchParamsChange(
   return editorHostOriginFromSearchParams(params);
 }
 
+export function editorThemeConfigurationKey(
+  params: Pick<URLSearchParams, "get">,
+): string {
+  return JSON.stringify([
+    params.get("ui_theme"),
+    params.get("scheme"),
+    params.get("host_origin"),
+  ]);
+}
+
+export function shouldApplyEditorThemeConfiguration(
+  previous: Pick<URLSearchParams, "get">,
+  next: Pick<URLSearchParams, "get">,
+): boolean {
+  return (
+    editorThemeConfigurationKey(previous) !== editorThemeConfigurationKey(next)
+  );
+}
+
 export function createEditorThemeMessage(
   selection: EditorThemeSelection,
 ): EditorThemeMessage {

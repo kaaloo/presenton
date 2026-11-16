@@ -6,6 +6,7 @@ import {
   useEffect,
   useLayoutEffect,
   useMemo,
+  useRef,
   useState,
   type ReactNode,
 } from "react";
@@ -20,6 +21,7 @@ import {
   getEditorThemeTokens,
   isEditorThemeEventAllowed,
   parseEditorThemeMessage,
+  shouldApplyEditorThemeConfiguration,
   type EditorThemeSelection,
   type EditorThemeTokens,
 } from "@/lib/editor-theme";
@@ -45,8 +47,18 @@ export function EditorThemeProvider({ children }: { children: ReactNode }) {
   const [hostOrigin, setHostOrigin] = useState<string | null>(() =>
     editorHostOriginFromSearchParams(searchParams),
   );
+  const previousSearchParams = useRef(searchParams);
 
   useEffect(() => {
+    if (
+      !shouldApplyEditorThemeConfiguration(
+        previousSearchParams.current,
+        searchParams,
+      )
+    ) {
+      return;
+    }
+    previousSearchParams.current = searchParams;
     setSelection((current) =>
       editorThemeAfterSearchParamsChange(current, searchParams),
     );

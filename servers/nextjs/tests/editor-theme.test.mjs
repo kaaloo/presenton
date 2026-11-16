@@ -99,6 +99,35 @@ test("unrelated navigation preserves theme and host configuration", () => {
   );
 });
 
+test("unrelated query changes do not reapply stale theme fields", () => {
+  const initial = new URLSearchParams(
+    "ui_theme=dsfr&scheme=light&stream=true&host_origin=https%3A%2F%2Fconversations.example",
+  );
+  const streamCompleted = new URLSearchParams(
+    "ui_theme=dsfr&scheme=light&host_origin=https%3A%2F%2Fconversations.example",
+  );
+  assert.equal(
+    theme.shouldApplyEditorThemeConfiguration(initial, streamCompleted),
+    false,
+  );
+  assert.equal(
+    theme.shouldApplyEditorThemeConfiguration(
+      initial,
+      new URLSearchParams(
+        "ui_theme=dsfr&scheme=dark&stream=true&host_origin=https%3A%2F%2Fconversations.example",
+      ),
+    ),
+    true,
+  );
+  assert.equal(
+    theme.shouldApplyEditorThemeConfiguration(
+      initial,
+      new URLSearchParams("id=deck-1&mode=present&slide=1"),
+    ),
+    true,
+  );
+});
+
 test("host origins are normalized and restricted to HTTP(S)", () => {
   assert.equal(
     theme.editorHostOriginFromSearchParams(
