@@ -193,20 +193,100 @@
 
 :root[data-editor-theme="dsfr"]
   :is(.editor-dialog, .editor-popover, .editor-dropdown, .editor-select-content)
-  :is(.bg-\[\#FAFAFB\], .bg-\[\#F6F6F9\], .bg-\[\#F7F7FA\], .bg-\[\#F8F8FA\]) {
+  :is(
+    .bg-\[\#E4E7EC\],
+    .bg-\[\#E6E6E6\],
+    .bg-\[\#E7E8EC\],
+    .bg-\[\#E8E8E8\],
+    .bg-\[\#EDECEC\],
+    .bg-\[\#EDEEEF\],
+    .bg-\[\#F1F5F9\],
+    .bg-\[\#F3F4F7\],
+    .bg-\[\#F6F6F9\],
+    .bg-\[\#F7F6F9\],
+    .bg-\[\#F7F7F8\],
+    .bg-\[\#F7F7FA\],
+    .bg-\[\#F8F8FA\],
+    .bg-\[\#F8FAFC\],
+    .bg-\[\#F9FAFB\],
+    .bg-\[\#FAFAFA\],
+    .bg-\[\#FAFAFB\],
+    .bg-\[\#FCFCFD\],
+    .bg-\[\#FEFEFF\],
+    .bg-\[\#FFFEFF\]
+  ) {
   background: var(--editor-surface-subtle);
 }
 
 :root[data-editor-theme="dsfr"]
   :is(.editor-dialog, .editor-popover, .editor-dropdown, .editor-select-content)
-  .hover\:bg-\[\#F6F6F9\]:hover,
-:root[data-editor-theme="dsfr"]
-  :is(.editor-dialog, .editor-popover, .editor-dropdown, .editor-select-content)
-  .focus\:bg-\[\#F6F6F9\]:focus,
-:root[data-editor-theme="dsfr"]
-  :is(.editor-dialog, .editor-popover, .editor-dropdown, .editor-select-content)
-  .hover\:bg-gray-50:hover {
+  :is(
+    .bg-\[\#DBEAFE\],
+    .bg-\[\#E4DFFF\],
+    .bg-\[\#EBE9FE\],
+    .bg-\[\#EFF6FF\],
+    .bg-\[\#F0EDFF\],
+    .bg-\[\#F1EFFF\],
+    .bg-\[\#F3F0FF\],
+    .bg-\[\#F4F3FF\],
+    .bg-\[\#F5F3FF\],
+    .bg-\[\#F7F5FF\],
+    .bg-\[\#F8F6FF\],
+    .bg-\[\#FAF9FF\],
+    .bg-\[\#FAFAFF\],
+    .bg-\[\#FBFAFF\]
+  ) {
   background: var(--editor-primary-soft);
+}
+
+:root[data-editor-theme="dsfr"]
+  :is(.editor-dialog, .editor-popover, .editor-dropdown, .editor-select-content)
+  :is(.bg-\[\#FEF3F2\], .bg-\[\#FFFBFA\]) {
+  background: var(--editor-danger-soft);
+}
+
+:root[data-editor-theme="dsfr"]
+  :is(.editor-dialog, .editor-popover, .editor-dropdown, .editor-select-content)
+  :is(
+    .hover\:bg-\[\#DBEAFE\],
+    .hover\:bg-\[\#E4DFFF\],
+    .hover\:bg-\[\#EBE9FE\],
+    .hover\:bg-\[\#F0EDFF\],
+    .hover\:bg-\[\#F1EFFF\],
+    .hover\:bg-\[\#F3F0FF\],
+    .hover\:bg-\[\#F4F3FF\],
+    .hover\:bg-\[\#F5F3FF\],
+    .hover\:bg-\[\#F7F5FF\],
+    .hover\:bg-\[\#F8F6FF\],
+    .hover\:bg-\[\#FAF9FF\],
+    .hover\:bg-\[\#FAFAFF\],
+    .hover\:bg-\[\#FBFAFF\],
+    .focus\:bg-\[\#F6F6F9\],
+    .focus\:bg-\[\#F7F6F9\]
+  ):is(:hover, :focus) {
+  background: var(--editor-primary-soft);
+}
+
+:root[data-editor-theme="dsfr"]
+  :is(.editor-dialog, .editor-popover, .editor-dropdown, .editor-select-content)
+  :is(
+    .hover\:bg-\[\#E4E7EC\],
+    .hover\:bg-\[\#F1F5F9\],
+    .hover\:bg-\[\#F6F6F9\],
+    .hover\:bg-\[\#F7F6F9\],
+    .hover\:bg-\[\#F7F7F8\],
+    .hover\:bg-\[\#F8F8FA\],
+    .hover\:bg-\[\#F9FAFB\],
+    .hover\:bg-\[\#FAFAFA\],
+    .hover\:bg-gray-50
+  ):hover {
+  background: var(--editor-surface-subtle);
+}
+
+:root[data-editor-theme="dsfr"]
+  :is(.editor-dialog, .editor-popover, .editor-dropdown, .editor-select-content)
+  .focus\:bg-\[\#FEF3F2\]:focus {
+  background: var(--editor-danger-soft);
 }
 
 :root[data-editor-theme="dsfr"] .editor-button {

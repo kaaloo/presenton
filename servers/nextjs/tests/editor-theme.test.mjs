@@ -348,6 +348,8 @@ test("CSS contains every JS token and explicitly isolates slide documents", asyn
 
   let hasOverlayTextReset = false;
   let hasSubtleSurfaceReset = false;
+  let hasPrimarySoftReset = false;
+  let hasNeutralSectionReset = false;
   parsedCss.walkRules((rule) => {
     hasOverlayTextReset ||= rule.nodes.some(
       (node) =>
@@ -363,10 +365,26 @@ test("CSS contains every JS token and explicitly isolates slide documents", asyn
         node.prop === "background" &&
         node.value === "var(--editor-surface-subtle)",
     );
+    hasPrimarySoftReset ||= rule.nodes.some(
+      (node) =>
+        rule.selector.includes(".bg-\\[\\#f4f3ff\\]") &&
+        node.type === "decl" &&
+        node.prop === "background" &&
+        node.value === "var(--editor-primary-soft)",
+    );
+    hasNeutralSectionReset ||= rule.nodes.some(
+      (node) =>
+        rule.selector.includes(".bg-\\[\\#fcfcfd\\]") &&
+        node.type === "decl" &&
+        node.prop === "background" &&
+        node.value === "var(--editor-surface-subtle)",
+    );
   });
   assert.ok(hasOverlayTextReset, "shared overlays must reset descendant text");
   assert.ok(
     hasSubtleSurfaceReset,
     "shared overlays must reset subtle child surfaces",
   );
+  assert.ok(hasPrimarySoftReset, "shared overlays must reset purple child surfaces");
+  assert.ok(hasNeutralSectionReset, "shared overlays must reset neutral section surfaces");
 });
