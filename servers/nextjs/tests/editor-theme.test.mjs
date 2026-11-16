@@ -225,6 +225,26 @@ test("CSS contains every JS token and explicitly isolates slide documents", asyn
     "utf8",
   );
   assert.match(thumbnailRenderer, /data-slide-document/);
+  const smartRenderer = await readFile(
+    path.resolve("app/(presentation-generator)/components/SmartHtmlSlide.tsx"),
+    "utf8",
+  );
+  assert.equal(
+    (smartRenderer.match(/data-slide-document/g) ?? []).length,
+    2,
+    "both SmartHtmlSlide rendering paths must own the slide boundary",
+  );
+  const templateV2Renderer = await readFile(
+    path.resolve(
+      "app/(presentation-generator)/components/TemplateV2HtmlSlidePreview.tsx",
+    ),
+    "utf8",
+  );
+  assert.equal(
+    (templateV2Renderer.match(/data-slide-document/g) ?? []).length,
+    2,
+    "Template V2 preview and fallback containers must own the slide boundary",
+  );
 
   const parsedCss = postcss.parse(css);
   const typographySelectors = [];
