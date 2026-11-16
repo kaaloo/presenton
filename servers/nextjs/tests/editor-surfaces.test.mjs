@@ -42,6 +42,7 @@ test("header and mobile layout use semantic surfaces and actions", () => {
     [".editor-export-button", ["background", "var(--editor-primary)"]],
     [".editor-thumbnail--selected", ["border-color", "var(--editor-primary)"]],
     [".editor-mobile-assistant", ["background", "var(--editor-primary)"]],
+    [".editor-floating-toolbar", ["background", "var(--editor-surface)"]],
   ]);
   for (const [className, [property, value]] of expectations) {
     let found = false;

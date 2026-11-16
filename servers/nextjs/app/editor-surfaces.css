@@ -206,6 +206,20 @@
   background: var(--editor-surface);
 }
 
+:root[data-editor-theme="dsfr"]
+  :is(.editor-actions, .editor-panel, .editor-chat, .editor-floating-toolbar) {
+  border: 1px solid var(--editor-border);
+  border-radius: var(--editor-control-radius);
+  background: var(--editor-surface);
+  color: var(--editor-text);
+}
+
+:root[data-editor-theme="dsfr"]
+  :is(.editor-actions, .editor-panel, .editor-chat)
+  :is(.bg-white\/95, .bg-white\/90) {
+  background: var(--editor-surface);
+}
+
 :root[data-editor-theme="dsfr"] .editor-action-button {
   border-radius: var(--editor-control-radius);
   color: var(--editor-text-muted);
