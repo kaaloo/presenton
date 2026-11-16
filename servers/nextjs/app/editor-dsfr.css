@@ -160,6 +160,55 @@
   backdrop-filter: none;
 }
 
+/* Overlay content often has its own hard-coded foreground. Reset the whole
+   typographic surface first, then let semantic variants below restore primary,
+   muted, disabled, and destructive states. */
+:root[data-editor-theme="dsfr"]
+  :is(.editor-dialog, .editor-popover, .editor-dropdown, .editor-select-content)
+  :where(
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    p,
+    span,
+    a,
+    label,
+    div,
+    button,
+    strong,
+    small,
+    li
+  ) {
+  color: var(--editor-text);
+}
+
+:root[data-editor-theme="dsfr"]
+  :is(.editor-dialog, .editor-popover, .editor-dropdown, .editor-select-content)
+  .bg-white {
+  background: var(--editor-surface);
+}
+
+:root[data-editor-theme="dsfr"]
+  :is(.editor-dialog, .editor-popover, .editor-dropdown, .editor-select-content)
+  :is(.bg-\[\#FAFAFB\], .bg-\[\#F6F6F9\], .bg-\[\#F7F7FA\], .bg-\[\#F8F8FA\]) {
+  background: var(--editor-surface-subtle);
+}
+
+:root[data-editor-theme="dsfr"]
+  :is(.editor-dialog, .editor-popover, .editor-dropdown, .editor-select-content)
+  .hover\:bg-\[\#F6F6F9\]:hover,
+:root[data-editor-theme="dsfr"]
+  :is(.editor-dialog, .editor-popover, .editor-dropdown, .editor-select-content)
+  .focus\:bg-\[\#F6F6F9\]:focus,
+:root[data-editor-theme="dsfr"]
+  :is(.editor-dialog, .editor-popover, .editor-dropdown, .editor-select-content)
+  .hover\:bg-gray-50:hover {
+  background: var(--editor-primary-soft);
+}
+
 :root[data-editor-theme="dsfr"] .editor-button {
   border-radius: var(--editor-control-radius);
   box-shadow: none;

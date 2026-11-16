@@ -345,4 +345,28 @@ test("CSS contains every JS token and explicitly isolates slide documents", asyn
   );
   assert.match(componentMenuSource, /editor-component-menu-item/);
   assert.match(componentMenuSource, /editor-component-menu-shortcut/);
+
+  let hasOverlayTextReset = false;
+  let hasSubtleSurfaceReset = false;
+  parsedCss.walkRules((rule) => {
+    hasOverlayTextReset ||= rule.nodes.some(
+      (node) =>
+        rule.selector.includes(":where(") &&
+        node.type === "decl" &&
+        node.prop === "color" &&
+        node.value === "var(--editor-text)",
+    );
+    hasSubtleSurfaceReset ||= rule.nodes.some(
+      (node) =>
+        rule.selector.includes(".bg-\\[\\#fafafb\\]") &&
+        node.type === "decl" &&
+        node.prop === "background" &&
+        node.value === "var(--editor-surface-subtle)",
+    );
+  });
+  assert.ok(hasOverlayTextReset, "shared overlays must reset descendant text");
+  assert.ok(
+    hasSubtleSurfaceReset,
+    "shared overlays must reset subtle child surfaces",
+  );
 });
