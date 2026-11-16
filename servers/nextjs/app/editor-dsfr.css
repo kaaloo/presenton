@@ -238,6 +238,19 @@
   box-shadow: 0 6px 18px var(--editor-overlay);
 }
 
+:root[data-editor-theme="dsfr"] .editor-dialog .editor-dialog-title {
+  color: var(--editor-text);
+}
+
+:root[data-editor-theme="dsfr"] .editor-dialog .editor-dialog-description {
+  color: var(--editor-text-muted);
+}
+
+:root[data-editor-theme="dsfr"] .editor-popover .text-\[\#19001F\],
+:root[data-editor-theme="dsfr"] .editor-popover .text-black {
+  color: var(--editor-text);
+}
+
 :root[data-editor-theme="dsfr"] .editor-tooltip {
   border-radius: var(--editor-control-radius);
   background: var(--editor-text);

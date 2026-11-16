@@ -276,4 +276,40 @@ test("CSS contains every JS token and explicitly isolates slide documents", asyn
     ),
     "the slide boundary must reset the inherited body text color",
   );
+
+  for (const [className, color] of [
+    ["editor-dialog-title", "var(--editor-text)"],
+    ["editor-dialog-description", "var(--editor-text-muted)"],
+  ]) {
+    let found = false;
+    parsedCss.walkRules((rule) => {
+      if (!rule.selector.includes(`.${className}`)) return;
+      found ||= rule.nodes.some(
+        (node) =>
+          node.type === "decl" && node.prop === "color" && node.value === color,
+      );
+    });
+    assert.ok(found, `${className} must use ${color}`);
+  }
+  const dialogSource = await readFile(
+    path.resolve("components/ui/dialog.tsx"),
+    "utf8",
+  );
+  assert.match(dialogSource, /editor-dialog-title/);
+  assert.match(dialogSource, /editor-dialog-description/);
+
+  for (const className of ["text-\\[\\#19001f\\]", "text-black"]) {
+    let found = false;
+    parsedCss.walkRules((rule) => {
+      if (!rule.selector.includes(".editor-popover")) return;
+      if (!rule.selector.includes(className)) return;
+      found ||= rule.nodes.some(
+        (node) =>
+          node.type === "decl" &&
+          node.prop === "color" &&
+          node.value === "var(--editor-text)",
+      );
+    });
+    assert.ok(found, `${className} must use themed text in shared popovers`);
+  }
 });
