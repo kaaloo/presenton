@@ -155,6 +155,7 @@ test("CSS contains every JS token and explicitly isolates slide documents", asyn
   const parsedCss = postcss.parse(css);
   const typographySelectors = [];
   let overlayRule;
+  let slideBoundaryRule;
   parsedCss.walkRules((rule) => {
     if (
       rule.nodes.some(
@@ -167,6 +168,11 @@ test("CSS contains every JS token and explicitly isolates slide documents", asyn
       typographySelectors.push(rule.selector);
     }
     if (rule.selector.endsWith(".editor-dialog-overlay")) overlayRule = rule;
+    if (
+      rule.selector === ':root[data-editor-theme="dsfr"] [data-slide-document]'
+    ) {
+      slideBoundaryRule = rule;
+    }
   });
   for (const className of [
     "editor-typography",
@@ -192,5 +198,15 @@ test("CSS contains every JS token and explicitly isolates slide documents", asyn
       (node) => node.type === "decl" && node.prop === "font-family",
     ),
     false,
+  );
+  assert.ok(slideBoundaryRule);
+  assert.ok(
+    slideBoundaryRule.nodes.some(
+      (node) =>
+        node.type === "decl" &&
+        node.prop === "color" &&
+        node.value === "hsl(240 10% 3.9%)",
+    ),
+    "the slide boundary must reset the inherited body text color",
   );
 });

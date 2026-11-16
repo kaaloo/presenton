@@ -119,6 +119,7 @@
 /* Slide documents keep their own template theme, including semantic Tailwind
    variables that may be used by generated HTML or template runtimes. */
 :root[data-editor-theme="dsfr"] [data-slide-document] {
+  color: hsl(240 10% 3.9%);
   --background: 0 0% 100%;
   --foreground: 240 10% 3.9%;
   --card: 0 0% 100%;
