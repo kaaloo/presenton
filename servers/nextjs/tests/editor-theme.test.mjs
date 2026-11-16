@@ -61,6 +61,44 @@ test("DSFR light and dark parameters select their exact themes", () => {
   );
 });
 
+test("unrelated navigation preserves theme and host configuration", () => {
+  const selection = { theme: "dsfr", scheme: "dark" };
+  const host = "https://conversations.example";
+  const presentationNavigation = new URLSearchParams(
+    "id=deck-1&mode=present&slide=1&type=smart",
+  );
+  assert.equal(
+    theme.editorThemeAfterSearchParamsChange(selection, presentationNavigation),
+    selection,
+  );
+  assert.equal(
+    theme.editorHostOriginAfterSearchParamsChange(host, presentationNavigation),
+    host,
+  );
+
+  assert.deepEqual(
+    theme.editorThemeAfterSearchParamsChange(
+      selection,
+      new URLSearchParams("scheme=light"),
+    ),
+    { theme: "dsfr", scheme: "light" },
+  );
+  assert.deepEqual(
+    theme.editorThemeAfterSearchParamsChange(
+      selection,
+      new URLSearchParams("ui_theme=presenton"),
+    ),
+    { theme: "presenton", scheme: "dark" },
+  );
+  assert.equal(
+    theme.editorHostOriginAfterSearchParamsChange(
+      host,
+      new URLSearchParams("host_origin=javascript%3Aalert(1)"),
+    ),
+    null,
+  );
+});
+
 test("host origins are normalized and restricted to HTTP(S)", () => {
   assert.equal(
     theme.editorHostOriginFromSearchParams(

@@ -13,7 +13,9 @@ import { useSearchParams } from "next/navigation";
 
 import {
   DEFAULT_EDITOR_THEME,
+  editorHostOriginAfterSearchParamsChange,
   editorHostOriginFromSearchParams,
+  editorThemeAfterSearchParamsChange,
   editorThemeFromSearchParams,
   getEditorThemeTokens,
   isEditorThemeEventAllowed,
@@ -37,19 +39,21 @@ export function useEditorTheme() {
 
 export function EditorThemeProvider({ children }: { children: ReactNode }) {
   const searchParams = useSearchParams();
-  const initialSelection = useMemo(
-    () => editorThemeFromSearchParams(searchParams),
-    [searchParams],
+  const [selection, setSelection] = useState(() =>
+    editorThemeFromSearchParams(searchParams),
   );
-  const hostOrigin = useMemo(
-    () => editorHostOriginFromSearchParams(searchParams),
-    [searchParams],
+  const [hostOrigin, setHostOrigin] = useState<string | null>(() =>
+    editorHostOriginFromSearchParams(searchParams),
   );
-  const [selection, setSelection] = useState(initialSelection);
 
   useEffect(() => {
-    setSelection(initialSelection);
-  }, [initialSelection]);
+    setSelection((current) =>
+      editorThemeAfterSearchParamsChange(current, searchParams),
+    );
+    setHostOrigin((current) =>
+      editorHostOriginAfterSearchParamsChange(current, searchParams),
+    );
+  }, [searchParams]);
 
   useEffect(() => {
     const handleMessage = (event: MessageEvent) => {

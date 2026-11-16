@@ -118,6 +118,23 @@ export function editorThemeFromSearchParams(
   return normalizeEditorTheme(params.get("ui_theme"), params.get("scheme"));
 }
 
+export function editorThemeAfterSearchParamsChange(
+  current: EditorThemeSelection,
+  params: Pick<URLSearchParams, "get">,
+): EditorThemeSelection {
+  const theme = params.get("ui_theme");
+  const scheme = params.get("scheme");
+  if (theme === null && scheme === null) return current;
+  return {
+    theme:
+      theme === null ? current.theme : normalizeEditorTheme(theme, null).theme,
+    scheme:
+      scheme === null
+        ? current.scheme
+        : normalizeEditorTheme(null, scheme).scheme,
+  };
+}
+
 export function editorHostOriginFromSearchParams(
   params: Pick<URLSearchParams, "get">,
 ): string | null {
@@ -130,6 +147,14 @@ export function editorHostOriginFromSearchParams(
   } catch {
     return null;
   }
+}
+
+export function editorHostOriginAfterSearchParamsChange(
+  current: string | null,
+  params: Pick<URLSearchParams, "get">,
+): string | null {
+  if (params.get("host_origin") === null) return current;
+  return editorHostOriginFromSearchParams(params);
 }
 
 export function createEditorThemeMessage(
