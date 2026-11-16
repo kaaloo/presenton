@@ -218,6 +218,13 @@ test("CSS contains every JS token and explicitly isolates slide documents", asyn
     "utf8",
   );
   assert.match(renderer, /data-slide-document/);
+  const thumbnailRenderer = await readFile(
+    path.resolve(
+      "app/(presentation-generator)/presentation/components/SlideThumbnailCard.tsx",
+    ),
+    "utf8",
+  );
+  assert.match(thumbnailRenderer, /data-slide-document/);
 
   const parsedCss = postcss.parse(css);
   const typographySelectors = [];
