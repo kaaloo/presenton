@@ -2286,7 +2286,7 @@ const Chat = ({
     const previewFonts = getPresentationFonts(presentationData);
 
     return (
-      <div className="relative flex h-full w-full flex-col overflow-hidden bg-[#FEFEFF] font-syne">
+      <div className="editor-chat relative flex h-full w-full flex-col overflow-hidden bg-[#FEFEFF] font-syne">
         <Image
           src="/bg_chat.svg"
           alt=""

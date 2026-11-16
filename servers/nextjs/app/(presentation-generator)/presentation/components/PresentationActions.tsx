@@ -454,7 +454,7 @@ const NavButton = ({
       disabled={disabled}
       onClick={onClick}
       className={cn(
-        "group flex w-full flex-col items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#7A5AF8]/40 text-[12px] font-normal leading-normal transition-colors",
+        "editor-action-button group flex w-full flex-col items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#7A5AF8]/40 text-[12px] font-normal leading-normal transition-colors",
         item.id === "images" ? "h-[52px] gap-2" : "h-12 gap-1",
         active ? "text-[#7A5AF8]" : "text-black",
         disabled && "cursor-not-allowed opacity-40",
@@ -620,7 +620,7 @@ function TextsPanel({
   const [compositionsExpanded, setCompositionsExpanded] = useState(true);
 
   return (
-    <div className="h-full overflow-y-auto bg-white hide-scrollbar">
+    <div className="editor-panel h-full overflow-y-auto bg-white hide-scrollbar">
       <div className="px-[clamp(14px,1.4vw,20px)] pb-3 pt-[clamp(22px,2vw,28px)]">
         <h3 className="mb-5 text-[15px] font-medium leading-5 text-[#191919]">
           Text Styles
@@ -756,7 +756,7 @@ function ChartsPanel({
   }, [query]);
 
   return (
-    <div className="h-full overflow-y-auto bg-white hide-scrollbar">
+    <div className="editor-panel h-full overflow-y-auto bg-white hide-scrollbar">
       <div className="sticky top-0 z-20 border-b border-[#F4F4F5] bg-white/95 px-[clamp(14px,1.4vw,20px)] pb-4 pt-5 backdrop-blur-sm">
         <label className="relative block">
           <span className="sr-only">Search charts</span>
@@ -858,7 +858,7 @@ function ImagesPanel({
   theme: TemplateTheme;
 }) {
   return (
-    <div className="h-full overflow-y-auto bg-white hide-scrollbar">
+    <div className="editor-panel h-full overflow-y-auto bg-white hide-scrollbar">
       <div className="sticky top-0 z-20 bg-white/95 px-4 pb-[10px] pt-8 backdrop-blur-sm">
         <h3 className="font-['Syne'] text-[14px] font-normal leading-normal text-[#191919]">
           Images
@@ -953,7 +953,7 @@ function ShapesPanel({
   const hasSearchResults = visibleGroups.some((group) => group.items.length > 0);
 
   return (
-    <div className="h-full overflow-y-auto bg-white hide-scrollbar">
+    <div className="editor-panel h-full overflow-y-auto bg-white hide-scrollbar">
       <div className="sticky top-0 z-30 border-b border-[#F4F4F5] bg-white/95 px-[clamp(14px,1.4vw,20px)] pb-4 pt-5 backdrop-blur-sm">
         <label className="relative block">
           <span className="sr-only">Search elements</span>
@@ -1106,7 +1106,7 @@ function InfographicsPanel({
   }, [query]);
 
   return (
-    <div className="h-full overflow-y-auto bg-white hide-scrollbar">
+    <div className="editor-panel h-full overflow-y-auto bg-white hide-scrollbar">
       <div className="sticky top-0 z-20 border-b border-[#F4F4F5] bg-white/95 px-[clamp(14px,1.4vw,20px)] pb-4 pt-5 backdrop-blur-sm">
         <label className="relative block">
           <span className="sr-only">Search infographics</span>
@@ -1895,7 +1895,7 @@ function PrimaryActionButton({
       title={disabled ? disabledReason : undefined}
       aria-label={disabled && disabledReason ? `${label}: ${disabledReason}` : label}
       className={cn(
-        "flex h-12 w-full flex-col items-center justify-center gap-1",
+        "editor-action-button flex h-12 w-full flex-col items-center justify-center gap-1",
         disabled && "cursor-not-allowed opacity-40",
       )}
       onClick={onClick}
@@ -1937,7 +1937,7 @@ function ActionsSidebar({
   return (
     <aside
       aria-label="Editor tools"
-      className="ml-auto flex h-full w-[70px] shrink-0 flex-col items-center gap-5 overflow-y-auto bg-white py-3.5 hide-scrollbar"
+      className="editor-action-rail ml-auto flex h-full w-[70px] shrink-0 flex-col items-center gap-5 overflow-y-auto bg-white py-3.5 hide-scrollbar"
     >
       {aiOnly && (
         <PrimaryActionButton
@@ -2019,7 +2019,7 @@ function ActionsPanel({
   );
 
   return (
-    <div className="flex h-full min-w-0 flex-1 flex-col bg-white">
+    <div className="editor-actions flex h-full min-w-0 flex-1 flex-col bg-white">
       <div className="min-h-0 flex-1">
         <div className={cn("h-full", activeAction === "ai" ? "block" : "hidden")}>
           <Chat {...chatProps} presentationData={presentationData} inputDisabled={editingDisabled} />
@@ -2438,7 +2438,7 @@ const PresentationActions = (props: PresentationActionsProps) => {
   return (
     <div
       data-inline-edit-ignore="true"
-      className="flex h-full w-full overflow-hidden bg-white text-[clamp(12px,0.82vw,14px)]"
+      className="editor-actions flex h-full w-full overflow-hidden bg-white text-[clamp(12px,0.82vw,14px)]"
     >
       {panelOpen ? (
         <ActionsPanel

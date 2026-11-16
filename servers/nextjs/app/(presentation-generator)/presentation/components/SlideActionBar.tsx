@@ -316,7 +316,7 @@ const SlideActionBar = ({
             : "opacity-100"
         )}
       >
-        <div className="pointer-events-auto hide-scrollbar flex h-10 max-w-[calc(100%_-_2rem)] items-center overflow-x-auto rounded-[8px] border border-[#E6E6EC] bg-white px-2 shadow-[0_2px_14px_rgba(17,24,39,0.12)]">
+        <div className="editor-slide-actions pointer-events-auto hide-scrollbar flex h-10 max-w-[calc(100%_-_2rem)] items-center overflow-x-auto rounded-[8px] border border-[#E6E6EC] bg-white px-2 shadow-[0_2px_14px_rgba(17,24,39,0.12)]">
           {!isSmartSlide && (
             <>
               <button
@@ -415,7 +415,7 @@ const SlideActionBar = ({
                 side="top"
                 align="end"
                 sideOffset={8}
-                className="z-[90] w-[188px] overflow-hidden rounded-[10px] border border-[#E6E6EC] bg-white py-2 font-syne shadow-[0_8px_24px_rgba(17,24,39,0.14)]"
+                className="editor-dropdown z-[90] w-[188px] overflow-hidden rounded-[10px] border border-[#E6E6EC] bg-white py-2 font-syne shadow-[0_8px_24px_rgba(17,24,39,0.14)]"
               >
                 <DropdownMenu.Item
                   disabled={hasReachedSlideLimit}

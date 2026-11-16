@@ -4,6 +4,8 @@ import { useCallback, useEffect, useRef, type RefObject } from "react";
 import type Konva from "konva";
 import { Transformer } from "react-konva";
 import { TRANSFORM_ANCHOR_ATTR } from "@/components/slide-editor/selection/transformSession";
+import { useEditorTheme } from "@/components/EditorThemeProvider";
+import type { EditorThemeTokens } from "@/lib/editor-theme";
 
 const CORNER_HANDLE_SIZE = 14;
 const EDGE_HANDLE_LENGTH = 28;
@@ -60,7 +62,11 @@ type TemplateV2SelectionTransformersProps = {
   suppressSelectedOutline?: boolean;
 };
 
-function drawRotationHandle(context: Konva.Context, shape: Konva.Shape) {
+function drawRotationHandle(
+  context: Konva.Context,
+  shape: Konva.Shape,
+  tokens: EditorThemeTokens,
+) {
   const center = ROTATION_HANDLE_SIZE / 2;
 
   context.beginPath();
@@ -69,7 +75,7 @@ function drawRotationHandle(context: Konva.Context, shape: Konva.Shape) {
   context.fillStrokeShape(shape);
 
   context.save();
-  context.setAttr("strokeStyle", "#111111");
+  context.setAttr("strokeStyle", tokens.text);
   context.setAttr("lineWidth", 2);
   context.setAttr("lineCap", "round");
   context.setAttr("lineJoin", "round");
@@ -207,7 +213,7 @@ function preventInvertedAnchorDrag(
   return transform.point(clampedPoint);
 }
 
-function styleAnchor(anchor: Konva.Rect) {
+function styleAnchor(anchor: Konva.Rect, tokens: EditorThemeTokens) {
   const name = anchor.name();
   const isRotationHandle = name.includes("rotater");
   const isHorizontalEdge =
@@ -234,10 +240,10 @@ function styleAnchor(anchor: Konva.Rect) {
     offsetX: width / 2,
     offsetY: height / 2,
     cornerRadius: Math.min(width, height) / 2,
-    fill: "#FFFFFF",
-    stroke: "#E5E7EB",
+    fill: tokens.surface,
+    stroke: tokens.border,
     strokeWidth: 1,
-    shadowColor: "#101828",
+    shadowColor: tokens.text,
     shadowBlur: isRotationHandle ? 5 : 4,
     shadowOffsetX: 0,
     shadowOffsetY: isRotationHandle ? 2 : 2,
@@ -246,10 +252,16 @@ function styleAnchor(anchor: Konva.Rect) {
     perfectDrawEnabled: false,
   });
 
-  if (isRotationHandle) anchor.sceneFunc(drawRotationHandle);
+  if (isRotationHandle) {
+    anchor.sceneFunc((context, shape) => drawRotationHandle(context, shape, tokens));
+  }
 }
 
-function drawContextBoundary(context: Konva.Context, shape: Konva.Shape) {
+function drawContextBoundary(
+  context: Konva.Context,
+  shape: Konva.Shape,
+  tokens: EditorThemeTokens,
+) {
   const width = shape.width();
   const height = shape.height();
 
@@ -257,24 +269,27 @@ function drawContextBoundary(context: Konva.Context, shape: Konva.Shape) {
   context.setAttr("lineWidth", 2);
   context.setAttr("lineJoin", "miter");
   context.setLineDash([]);
-  context.setAttr("strokeStyle", "#D9D9DE");
+  context.setAttr("strokeStyle", tokens.borderStrong);
   context.beginPath();
   context.rect(0, 0, width, height);
   context.stroke();
 
   context.setLineDash([4, 8]);
-  context.setAttr("strokeStyle", "#FFFFFF");
+  context.setAttr("strokeStyle", tokens.surface);
   context.beginPath();
   context.rect(0, 0, width, height);
   context.stroke();
   context.restore();
 }
 
-function applyContextBoundaryStyle(transformer: Konva.Transformer) {
+function applyContextBoundaryStyle(
+  transformer: Konva.Transformer,
+  tokens: EditorThemeTokens,
+) {
   const back = transformer.findOne<Konva.Rect>(".back");
-  back?.sceneFunc(drawContextBoundary);
+  back?.sceneFunc((context, shape) => drawContextBoundary(context, shape, tokens));
   back?.setAttrs({
-    shadowColor: "#101828",
+    shadowColor: tokens.text,
     shadowBlur: 6,
     shadowOffsetX: 0,
     shadowOffsetY: 1,
@@ -305,6 +320,7 @@ function TemplateV2MultiSelectionMemberOutline({
   nodeRefs: RefObject<Map<string, Konva.Node>>;
   selectedKey: string;
 }) {
+  const { tokens } = useEditorTheme();
   const transformerRef = useRef<Konva.Transformer | null>(null);
 
   useEffect(() => {
@@ -327,7 +343,7 @@ function TemplateV2MultiSelectionMemberOutline({
       anchorSize={0}
       borderDash={MULTI_SELECTION_MEMBER_DASH}
       borderEnabled
-      borderStroke="#7A5AF8"
+      borderStroke={tokens.primary}
       borderStrokeWidth={1}
       enabledAnchors={[]}
       listening={false}
@@ -368,6 +384,7 @@ export function TemplateV2SelectionTransformers({
   fullElementTransform = false,
   suppressSelectedOutline = false,
 }: TemplateV2SelectionTransformersProps) {
+  const { tokens } = useEditorTheme();
   const selectedTransformerRef = useRef<Konva.Transformer | null>(null);
   const contextTransformerRef = useRef<Konva.Transformer | null>(null);
   const isTransformableElementSelection =
@@ -456,7 +473,7 @@ export function TemplateV2SelectionTransformers({
     const contextTransformer = contextTransformerRef.current;
     if (contextTransformer) {
       contextTransformer.nodes(parentComponentNode ? [parentComponentNode] : []);
-      applyContextBoundaryStyle(contextTransformer);
+      applyContextBoundaryStyle(contextTransformer, tokens);
     }
 
     const selectedRotationNode =
@@ -513,6 +530,7 @@ export function TemplateV2SelectionTransformers({
     canTransformSelection,
     fullElementTransform,
     suppressSelectedOutline,
+    tokens,
   ]);
 
   return (
@@ -520,12 +538,12 @@ export function TemplateV2SelectionTransformers({
       <Transformer
         ref={contextTransformerRef}
         anchorCornerRadius={7}
-        anchorFill="#FFFFFF"
+        anchorFill={tokens.surface}
         anchorSize={0}
-        anchorStroke="#D0D5DD"
+        anchorStroke={tokens.borderStrong}
         anchorStrokeWidth={1}
-        anchorStyleFunc={styleAnchor}
-        borderStroke="#D9D9DE"
+        anchorStyleFunc={(anchor) => styleAnchor(anchor, tokens)}
+        borderStroke={tokens.border}
         borderStrokeWidth={1}
         enabledAnchors={[]}
         listening={false}
@@ -540,17 +558,17 @@ export function TemplateV2SelectionTransformers({
       <Transformer
         ref={selectedTransformerRef}
         anchorCornerRadius={7}
-        anchorFill="#FFFFFF"
+        anchorFill={tokens.surface}
         anchorDragBoundFunc={boundAnchorDrag}
         anchorSize={CORNER_HANDLE_SIZE}
-        anchorStroke="#E5E7EB"
+        anchorStroke={tokens.border}
         anchorStrokeWidth={1}
-        anchorStyleFunc={styleAnchor}
+        anchorStyleFunc={(anchor) => styleAnchor(anchor, tokens)}
         borderDash={
           isMultiComponentSelection ? MULTI_SELECTION_GROUP_DASH : undefined
         }
         borderEnabled
-        borderStroke={isMultiComponentSelection ? "#D9D9DE" : "#7A5AF8"}
+        borderStroke={isMultiComponentSelection ? tokens.borderStrong : tokens.primary}
         borderStrokeWidth={1}
         boundBoxFunc={boundTransformBox}
         enabledAnchors={

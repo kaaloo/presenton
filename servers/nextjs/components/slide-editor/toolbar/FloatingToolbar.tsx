@@ -164,7 +164,7 @@ export function FloatingToolbar({
         ref={toolbarRef}
         data-inline-edit-ignore={inlineEditIgnore ? "true" : undefined}
         data-template-v2-floating-toolbar="true"
-        className={className}
+        className={["editor-floating-toolbar", className].filter(Boolean).join(" ")}
         style={{
           ...style,
           position: "fixed",
@@ -270,7 +270,7 @@ export const FloatingToolbarPanel = forwardRef<
     <div
       {...props}
       ref={setRef}
-      className={className}
+      className={["editor-floating-toolbar", className].filter(Boolean).join(" ")}
       data-inline-edit-ignore="true"
       data-template-v2-floating-toolbar="true"
       style={{
