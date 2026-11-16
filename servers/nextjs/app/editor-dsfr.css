@@ -184,7 +184,7 @@
     input,
     textarea,
     select
-  ):not([data-slide-document], [data-slide-document] *) {
+  ):where(:not([data-slide-document], [data-slide-document] *)) {
   color: var(--editor-text);
 }
 
