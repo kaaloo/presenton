@@ -68,6 +68,8 @@ test("action panels and floating toolbars join the shared overlay migration", ()
   ]) {
     assert.ok(foundationCss.includes(className), `${className} is missing`);
   }
+  assert.match(foundationCss, /input,\s+textarea,\s+select/);
+  assert.ok(surfaceCss.includes("::placeholder"));
 });
 
 test("editor surfaces use stable classes and Konva uses theme tokens", async () => {

@@ -180,7 +180,10 @@
     button,
     strong,
     small,
-    li
+    li,
+    input,
+    textarea,
+    select
   ) {
   color: var(--editor-text);
 }
