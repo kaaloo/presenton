@@ -28,7 +28,7 @@ export function TemplateV2MultiSelectionToolbar({
     <div
       data-inline-edit-ignore="true"
       data-template-v2-floating-toolbar="true"
-      className="fixed z-[10000] inline-flex h-11 items-center gap-1.5 rounded-[10px] border border-[#E7E8EC] bg-white p-1.5 font-manrope text-[#191919] shadow-[0_10px_30px_rgba(16,24,40,0.14)]"
+      className="editor-floating-toolbar fixed z-[10000] inline-flex h-11 items-center gap-1.5 rounded-[10px] border border-[#E7E8EC] bg-white p-1.5 font-manrope text-[#191919] shadow-[0_10px_30px_rgba(16,24,40,0.14)]"
       style={{ left: position.left, top: position.top }}
       onMouseDown={(event) => event.stopPropagation()}
       onPointerDown={(event) => event.stopPropagation()}

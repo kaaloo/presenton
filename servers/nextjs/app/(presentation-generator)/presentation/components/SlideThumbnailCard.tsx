@@ -69,7 +69,7 @@ const SlideThumbnailCardComponent = forwardRef<
         {...props}
       >
         <p
-          className={`pointer-events-none shrink-0 whitespace-nowrap text-[12px] leading-normal ${
+          className={`editor-thumbnail-index pointer-events-none shrink-0 whitespace-nowrap text-[12px] leading-normal ${
             selected
               ? "font-semibold text-[#7A5AF8]"
               : "font-normal text-[#333333]"
@@ -80,7 +80,7 @@ const SlideThumbnailCardComponent = forwardRef<
 
         <div
           data-slide-document
-          className={`relative h-[62px] w-[110px] shrink-0 overflow-hidden rounded-[4px] bg-white transition-[border-color,box-shadow] duration-200 ${
+          className={`editor-thumbnail ${selected ? "editor-thumbnail--selected" : ""} relative h-[62px] w-[110px] shrink-0 overflow-hidden rounded-[4px] bg-white transition-[border-color,box-shadow] duration-200 ${
             selected
               ? "border-2 border-[#7A5AF8] shadow-[0_0_0_3px_rgba(122,90,248,0.16)]"
               : "border border-[#EDEEEF]"

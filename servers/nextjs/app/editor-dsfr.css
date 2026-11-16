@@ -164,7 +164,7 @@
    typographic surface first, then let semantic variants below restore primary,
    muted, disabled, and destructive states. */
 :root[data-editor-theme="dsfr"]
-  :is(.editor-dialog, .editor-popover, .editor-dropdown, .editor-select-content)
+  :is(.editor-dialog, .editor-popover, .editor-dropdown, .editor-select-content, .editor-actions, .editor-panel, .editor-chat, .editor-floating-toolbar)
   :where(
     h1,
     h2,
@@ -186,13 +186,13 @@
 }
 
 :root[data-editor-theme="dsfr"]
-  :is(.editor-dialog, .editor-popover, .editor-dropdown, .editor-select-content)
+  :is(.editor-dialog, .editor-popover, .editor-dropdown, .editor-select-content, .editor-actions, .editor-panel, .editor-chat, .editor-floating-toolbar)
   .bg-white {
   background: var(--editor-surface);
 }
 
 :root[data-editor-theme="dsfr"]
-  :is(.editor-dialog, .editor-popover, .editor-dropdown, .editor-select-content)
+  :is(.editor-dialog, .editor-popover, .editor-dropdown, .editor-select-content, .editor-actions, .editor-panel, .editor-chat, .editor-floating-toolbar)
   :is(
     .bg-\[\#E4E7EC\],
     .bg-\[\#E6E6E6\],
@@ -219,7 +219,7 @@
 }
 
 :root[data-editor-theme="dsfr"]
-  :is(.editor-dialog, .editor-popover, .editor-dropdown, .editor-select-content)
+  :is(.editor-dialog, .editor-popover, .editor-dropdown, .editor-select-content, .editor-actions, .editor-panel, .editor-chat, .editor-floating-toolbar)
   :is(
     .bg-\[\#DBEAFE\],
     .bg-\[\#E4DFFF\],
@@ -240,13 +240,13 @@
 }
 
 :root[data-editor-theme="dsfr"]
-  :is(.editor-dialog, .editor-popover, .editor-dropdown, .editor-select-content)
+  :is(.editor-dialog, .editor-popover, .editor-dropdown, .editor-select-content, .editor-actions, .editor-panel, .editor-chat, .editor-floating-toolbar)
   :is(.bg-\[\#FEF3F2\], .bg-\[\#FFFBFA\]) {
   background: var(--editor-danger-soft);
 }
 
 :root[data-editor-theme="dsfr"]
-  :is(.editor-dialog, .editor-popover, .editor-dropdown, .editor-select-content)
+  :is(.editor-dialog, .editor-popover, .editor-dropdown, .editor-select-content, .editor-actions, .editor-panel, .editor-chat, .editor-floating-toolbar)
   :is(
     .hover\:bg-\[\#DBEAFE\],
     .hover\:bg-\[\#E4DFFF\],
@@ -268,7 +268,7 @@
 }
 
 :root[data-editor-theme="dsfr"]
-  :is(.editor-dialog, .editor-popover, .editor-dropdown, .editor-select-content)
+  :is(.editor-dialog, .editor-popover, .editor-dropdown, .editor-select-content, .editor-actions, .editor-panel, .editor-chat, .editor-floating-toolbar)
   :is(
     .hover\:bg-\[\#E4E7EC\],
     .hover\:bg-\[\#F1F5F9\],
@@ -284,7 +284,7 @@
 }
 
 :root[data-editor-theme="dsfr"]
-  :is(.editor-dialog, .editor-popover, .editor-dropdown, .editor-select-content)
+  :is(.editor-dialog, .editor-popover, .editor-dropdown, .editor-select-content, .editor-actions, .editor-panel, .editor-chat, .editor-floating-toolbar)
   .focus\:bg-\[\#FEF3F2\]:focus {
   background: var(--editor-danger-soft);
 }

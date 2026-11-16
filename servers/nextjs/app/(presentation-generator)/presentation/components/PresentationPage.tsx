@@ -45,6 +45,7 @@ import {
 } from "../../_shared/blank-slide";
 import PresentationHeader from "./PresentationHeader";
 import PresentationActions from "./PresentationActions";
+import { useEditorTheme } from "@/components/EditorThemeProvider";
 import {
   TEMPLATE_V2_ACTIVATE_SURFACE_EVENT,
   TEMPLATE_V2_SURFACE_SELECTED_EVENT,
@@ -146,6 +147,7 @@ const PresentationPage: React.FC<PresentationPageProps> = ({
 }) => {
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  const { theme: editorTheme, tokens: editorTokens } = useEditorTheme();
   const dispatch = useDispatch();
   // State management
   const [loading, setLoading] = useState(true);
@@ -848,7 +850,7 @@ const PresentationPage: React.FC<PresentationPageProps> = ({
   }
 
   return (
-    <div className="h-dvh overflow-hidden font-syne">
+    <div className="editor-page h-dvh overflow-hidden font-editor">
       <OverlayLoader
         show={loadingState.isLoading}
         text={loadingState.message}
@@ -858,7 +860,7 @@ const PresentationPage: React.FC<PresentationPageProps> = ({
       />
       <div
         style={{
-          background: isSmartPresentation ? "#F6F6F9" : "#EDEEEF",
+          background: editorTheme === "dsfr" ? editorTokens.background : isSmartPresentation ? "#F6F6F9" : "#EDEEEF",
         }}
         id="presentation-slides-wrapper"
         className="relative flex h-full flex-col overflow-hidden"
@@ -966,8 +968,8 @@ const PresentationPage: React.FC<PresentationPageProps> = ({
             aria-controls="presentation-mobile-assistant"
             aria-expanded={isMobileAssistantOpen}
             onClick={() => setIsMobileAssistantOpen(true)}
-            className="fixed bottom-5 right-5 z-40 inline-flex h-11 items-center gap-2 rounded-full border border-white/70 px-4 text-sm font-semibold text-[#101323] shadow-[0_8px_24px_rgba(74,58,155,0.24)] transition hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#7A5AF8] focus-visible:ring-offset-2 xl:hidden"
-            style={{
+            className="editor-mobile-assistant fixed bottom-5 right-5 z-40 inline-flex h-11 items-center gap-2 rounded-full border border-white/70 px-4 text-sm font-semibold text-[#101323] shadow-[0_8px_24px_rgba(74,58,155,0.24)] transition hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#7A5AF8] focus-visible:ring-offset-2 xl:hidden"
+            style={editorTheme === "dsfr" ? undefined : {
               background:
                 "linear-gradient(270deg, #D5CAFC 2.4%, #E3D2EB 27.88%, #F4DCD3 69.23%, #FDE4C2 100%)",
             }}
@@ -992,7 +994,7 @@ const PresentationPage: React.FC<PresentationPageProps> = ({
             aria-label={isMobileAssistantOpen ? "AI Assistant" : undefined}
             aria-modal={isMobileAssistantOpen ? true : undefined}
             className={cn(
-              "h-screen w-[calc(100vw-16px)] max-w-[375px] shrink-0 flex-col bg-white shadow-[-12px_0_32px_rgba(16,24,40,0.18)] transition-[width] duration-200 xl:relative xl:z-auto xl:h-full xl:max-w-none xl:self-start xl:border-l xl:border-[#EDEEEF] xl:shadow-none",
+              "editor-action-panel h-screen w-[calc(100vw-16px)] max-w-[375px] shrink-0 flex-col bg-white shadow-[-12px_0_32px_rgba(16,24,40,0.18)] transition-[width] duration-200 xl:relative xl:z-auto xl:h-full xl:max-w-none xl:self-start xl:border-l xl:border-[#EDEEEF] xl:shadow-none",
               isRightPanelOpen ? "xl:w-[383px]" : "xl:w-[78px]",
               isMobileAssistantOpen
                 ? "fixed inset-y-0 right-0 z-[70] flex"
