@@ -251,6 +251,38 @@
   color: var(--editor-text);
 }
 
+:root[data-editor-theme="dsfr"] .editor-popover .editor-export-panel {
+  background: var(--editor-surface);
+}
+
+:root[data-editor-theme="dsfr"] .editor-dropdown .editor-component-menu-item {
+  color: var(--editor-text);
+}
+
+:root[data-editor-theme="dsfr"]
+  .editor-dropdown
+  .editor-component-menu-item:hover,
+:root[data-editor-theme="dsfr"]
+  .editor-dropdown
+  .editor-component-menu-item:focus {
+  background: var(--editor-primary-soft);
+  color: var(--editor-text);
+}
+
+:root[data-editor-theme="dsfr"]
+  .editor-dropdown
+  .editor-component-menu-item[data-disabled] {
+  background: transparent;
+  color: var(--editor-text-muted);
+}
+
+:root[data-editor-theme="dsfr"]
+  .editor-dropdown
+  .editor-component-menu-shortcut {
+  background: var(--editor-surface-subtle);
+  color: var(--editor-text-muted);
+}
+
 :root[data-editor-theme="dsfr"] .editor-tooltip {
   border-radius: var(--editor-control-radius);
   background: var(--editor-text);

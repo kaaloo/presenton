@@ -312,4 +312,37 @@ test("CSS contains every JS token and explicitly isolates slide documents", asyn
     });
     assert.ok(found, `${className} must use themed text in shared popovers`);
   }
+
+  for (const [className, prop, value] of [
+    ["editor-export-panel", "background", "var(--editor-surface)"],
+    ["editor-component-menu-item", "color", "var(--editor-text)"],
+    [
+      "editor-component-menu-shortcut",
+      "background",
+      "var(--editor-surface-subtle)",
+    ],
+  ]) {
+    let found = false;
+    parsedCss.walkRules((rule) => {
+      if (!rule.selector.includes(`.${className}`)) return;
+      found ||= rule.nodes.some(
+        (node) =>
+          node.type === "decl" && node.prop === prop && node.value === value,
+      );
+    });
+    assert.ok(found, `${className} must set ${prop} to ${value}`);
+  }
+  const headerSource = await readFile(
+    path.resolve(
+      "app/(presentation-generator)/presentation/components/PresentationHeader.tsx",
+    ),
+    "utf8",
+  );
+  assert.match(headerSource, /editor-export-panel/);
+  const componentMenuSource = await readFile(
+    path.resolve("components/slide-editor/selection/ComponentActionsMenu.tsx"),
+    "utf8",
+  );
+  assert.match(componentMenuSource, /editor-component-menu-item/);
+  assert.match(componentMenuSource, /editor-component-menu-shortcut/);
 });
