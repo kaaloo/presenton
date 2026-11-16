@@ -43,6 +43,7 @@ test("header and mobile layout use semantic surfaces and actions", () => {
     [".editor-thumbnail--selected", ["border-color", "var(--editor-primary)"]],
     [".editor-mobile-assistant", ["background", "var(--editor-primary)"]],
     [".editor-floating-toolbar", ["background", "var(--editor-surface)"]],
+    [".editor-send-button", ["border-radius", "var(--editor-control-radius)"]],
   ]);
   for (const [className, [property, value]] of expectations) {
     let found = false;
@@ -70,6 +71,9 @@ test("action panels and floating toolbars join the shared overlay migration", ()
   }
   assert.match(foundationCss, /input,\s+textarea,\s+select/);
   assert.ok(surfaceCss.includes("::placeholder"));
+  assert.ok(foundationCss.includes(":not([data-slide-document], [data-slide-document] *)"));
+  assert.ok(foundationCss.includes(".editor-slide-actions"));
+  assert.ok(surfaceCss.includes("stroke: currentColor"));
 });
 
 test("editor surfaces use stable classes and Konva uses theme tokens", async () => {

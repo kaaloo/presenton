@@ -145,7 +145,8 @@
     .editor-select-edit,
     .editor-add-slide,
     .editor-mobile-assistant,
-    .editor-action-button
+    .editor-action-button,
+    .editor-send-button
   ):focus-visible {
   outline: 2px solid var(--editor-focus);
   outline-offset: 2px;
@@ -193,6 +194,12 @@
   border-radius: var(--editor-control-radius);
   background: var(--editor-surface);
   box-shadow: 0 2px 14px var(--editor-overlay);
+}
+
+:root[data-editor-theme="dsfr"] .editor-slide-actions svg,
+:root[data-editor-theme="dsfr"] .editor-slide-actions svg * {
+  color: var(--editor-text);
+  stroke: currentColor;
 }
 
 :root[data-editor-theme="dsfr"] .editor-action-panel {
@@ -265,6 +272,20 @@
 :root[data-editor-theme="dsfr"] .editor-mobile-assistant:hover {
   border-color: var(--editor-primary-hover);
   background: var(--editor-primary-hover);
+}
+
+:root[data-editor-theme="dsfr"] .editor-send-button {
+  border-radius: var(--editor-control-radius);
+  color: var(--editor-primary-foreground);
+}
+
+:root[data-editor-theme="dsfr"] .editor-send-button:disabled {
+  background: var(--editor-surface-subtle) !important;
+  color: var(--editor-text-muted) !important;
+}
+
+:root[data-editor-theme="dsfr"] .editor-send-button > svg {
+  color: inherit;
 }
 
 @media (width <= 640px) {
