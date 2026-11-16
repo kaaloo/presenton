@@ -110,6 +110,7 @@ const SlideScale = ({
         }}
       >
         <div
+          data-slide-document
           className="absolute top-0 left-0"
           style={{
             width: BASE_WIDTH,

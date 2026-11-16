@@ -1,0 +1,196 @@
+import assert from "node:assert/strict";
+import { mkdtemp, readFile, rm } from "node:fs/promises";
+import { tmpdir } from "node:os";
+import path from "node:path";
+import test from "node:test";
+import { pathToFileURL } from "node:url";
+import { build } from "esbuild";
+import postcss from "postcss";
+
+let theme;
+let temporaryDirectory;
+
+test.before(async () => {
+  temporaryDirectory = await mkdtemp(
+    path.join(tmpdir(), "presenton-editor-theme-"),
+  );
+  const outputFile = path.join(temporaryDirectory, "bundle.mjs");
+  await build({
+    entryPoints: [path.resolve("lib/editor-theme.ts")],
+    outfile: outputFile,
+    bundle: true,
+    platform: "node",
+    format: "esm",
+    tsconfig: path.resolve("tsconfig.json"),
+    logLevel: "silent",
+  });
+  theme = await import(pathToFileURL(outputFile).href);
+});
+
+test.after(async () => {
+  await rm(temporaryDirectory, { recursive: true, force: true });
+});
+
+test("empty and malformed theme parameters preserve stock Presenton", () => {
+  assert.deepEqual(theme.editorThemeFromSearchParams(new URLSearchParams()), {
+    theme: "presenton",
+    scheme: "light",
+  });
+  assert.deepEqual(
+    theme.editorThemeFromSearchParams(
+      new URLSearchParams("ui_theme=unknown&scheme=unknown"),
+    ),
+    { theme: "presenton", scheme: "light" },
+  );
+  assert.deepEqual(
+    theme.getEditorThemeTokens({ theme: "presenton", scheme: "dark" }),
+    theme.getEditorThemeTokens({ theme: "presenton", scheme: "light" }),
+  );
+});
+
+test("DSFR light and dark parameters select their exact themes", () => {
+  assert.deepEqual(
+    theme.editorThemeFromSearchParams(
+      new URLSearchParams("ui_theme=dsfr&scheme=dark"),
+    ),
+    { theme: "dsfr", scheme: "dark" },
+  );
+  assert.notDeepEqual(
+    theme.getEditorThemeTokens({ theme: "dsfr", scheme: "light" }),
+    theme.getEditorThemeTokens({ theme: "dsfr", scheme: "dark" }),
+  );
+});
+
+test("host origins are normalized and restricted to HTTP(S)", () => {
+  assert.equal(
+    theme.editorHostOriginFromSearchParams(
+      new URLSearchParams(
+        "host_origin=https%3A%2F%2Fconversations.example%2Fchat%2F123",
+      ),
+    ),
+    "https://conversations.example",
+  );
+  for (const value of [
+    "javascript:alert(1)",
+    "data:text/html,hello",
+    "not a URL",
+    "",
+  ]) {
+    const params = new URLSearchParams();
+    if (value) params.set("host_origin", value);
+    assert.equal(theme.editorHostOriginFromSearchParams(params), null);
+  }
+});
+
+test("theme messages round-trip and malformed messages are rejected", () => {
+  const selection = { theme: "dsfr", scheme: "dark" };
+  const message = theme.createEditorThemeMessage(selection);
+  assert.deepEqual(theme.parseEditorThemeMessage(message), selection);
+
+  for (const value of [
+    null,
+    "dsfr",
+    {},
+    { ...message, type: "other" },
+    { ...message, theme: "unknown" },
+    { ...message, scheme: "unknown" },
+  ]) {
+    assert.equal(theme.parseEditorThemeMessage(value), null);
+  }
+});
+
+test("theme events require the exact host origin and parent window", () => {
+  const parent = {};
+  const event = { origin: "https://conversations.example", source: parent };
+  assert.equal(
+    theme.isEditorThemeEventAllowed(
+      event,
+      "https://conversations.example",
+      parent,
+    ),
+    true,
+  );
+  assert.equal(
+    theme.isEditorThemeEventAllowed(
+      { ...event, origin: "https://attacker.example" },
+      "https://conversations.example",
+      parent,
+    ),
+    false,
+  );
+  assert.equal(
+    theme.isEditorThemeEventAllowed(
+      { ...event, source: {} },
+      "https://conversations.example",
+      parent,
+    ),
+    false,
+  );
+  assert.equal(theme.isEditorThemeEventAllowed(event, null, parent), false);
+});
+
+test("CSS contains every JS token and explicitly isolates slide documents", async () => {
+  const css = (
+    await readFile(path.resolve("app/editor-dsfr.css"), "utf8")
+  ).toLowerCase();
+  for (const scheme of ["light", "dark"]) {
+    const tokens = theme.getEditorThemeTokens({ theme: "dsfr", scheme });
+    for (const [name, value] of Object.entries(tokens)) {
+      assert.ok(
+        css.includes(value.toLowerCase()),
+        `${scheme}.${name} is missing ${value}`,
+      );
+    }
+  }
+  assert.ok(css.includes('[data-editor-theme="dsfr"] [data-slide-document]'));
+
+  const renderer = await readFile(
+    path.resolve(
+      "app/(presentation-generator)/components/PresentationRender.tsx",
+    ),
+    "utf8",
+  );
+  assert.match(renderer, /data-slide-document/);
+
+  const parsedCss = postcss.parse(css);
+  const typographySelectors = [];
+  let overlayRule;
+  parsedCss.walkRules((rule) => {
+    if (
+      rule.nodes.some(
+        (node) =>
+          node.type === "decl" &&
+          node.prop === "font-family" &&
+          node.value === "var(--editor-font-family)",
+      )
+    ) {
+      typographySelectors.push(rule.selector);
+    }
+    if (rule.selector.endsWith(".editor-dialog-overlay")) overlayRule = rule;
+  });
+  for (const className of [
+    "editor-typography",
+    "editor-button",
+    "editor-input",
+    "editor-select-trigger",
+    "editor-dialog",
+    "editor-popover",
+    "editor-dropdown",
+    "editor-select-content",
+    "editor-tooltip",
+  ]) {
+    assert.ok(
+      typographySelectors.some((selector) =>
+        selector.includes(`.${className}`),
+      ),
+      `${className} is missing from the typography rule`,
+    );
+  }
+  assert.ok(overlayRule);
+  assert.equal(
+    overlayRule.nodes.some(
+      (node) => node.type === "decl" && node.prop === "font-family",
+    ),
+    false,
+  );
+});
