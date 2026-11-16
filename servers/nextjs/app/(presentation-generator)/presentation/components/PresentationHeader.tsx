@@ -468,7 +468,7 @@ const PresentationHeader = ({
 
   const ExportOptions = ({ mobile }: { mobile: boolean }) => (
     <div
-      className={` rounded-[18px] max-md:mt-4 ${mobile ? "" : "bg-white"}  p-5`}
+      className={`editor-export-panel rounded-[18px] max-md:mt-4 ${mobile ? "" : "bg-white"}  p-5`}
     >
       <p className="text-sm font-medium text-[#19001F]">Export as</p>
       <div className="my-[18px] h-[1px] bg-[#E8E8E8]" />

@@ -1,15 +1,16 @@
 import type { CSSProperties } from "react";
 
 const baseFont =
-  "var(--font-manrope), -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif";
+  "var(--editor-font-family, var(--font-manrope)), -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif";
 
 const editorTheme = {
-  surface: "#FFFFFF",
-  border: "#EDEEEF",
-  text: "#191919",
-  primary: "#7C51F8",
-  primarySoft: "#F4F3FF",
-  danger: "#D83B3B",
+  surface: "var(--editor-surface, #FFFFFF)",
+  border: "var(--editor-border, #EDEEEF)",
+  text: "var(--editor-text, #191919)",
+  primary: "var(--editor-primary, #7C51F8)",
+  primarySoft: "var(--editor-primary-soft, #F4F3FF)",
+  primaryForeground: "var(--editor-primary-foreground, #FFFFFF)",
+  danger: "var(--editor-danger, #D83B3B)",
 } as const;
 
 export const inlineStyles = {
@@ -23,10 +24,10 @@ export const inlineStyles = {
     minHeight: 36,
     maxWidth: "calc(100% - 16px)",
     padding: "4px 6px",
-    borderRadius: 8,
+    borderRadius: "var(--editor-control-radius, 8px)",
     border: `1px solid ${editorTheme.border}`,
-    background: "rgba(255,255,255,0.96)",
-    boxShadow: "0 12px 34px rgba(16,19,35,0.16)",
+    background: "var(--editor-surface, rgba(255,255,255,0.96))",
+    boxShadow: "var(--editor-toolbar-shadow, 0 12px 34px rgba(16,19,35,0.16))",
   },
   iconButton: {
     width: 28,
@@ -34,7 +35,7 @@ export const inlineStyles = {
     display: "inline-grid",
     placeItems: "center",
     boxSizing: "border-box",
-    borderRadius: 6,
+    borderRadius: "var(--editor-control-radius, 6px)",
     border: `1px solid ${editorTheme.border}`,
     background: editorTheme.surface,
     color: editorTheme.text,
@@ -58,7 +59,7 @@ export const inlineStyles = {
     width: 54,
     height: 28,
     boxSizing: "border-box",
-    borderRadius: 6,
+    borderRadius: "var(--editor-control-radius, 6px)",
     border: `1px solid ${editorTheme.border}`,
     background: editorTheme.surface,
     color: editorTheme.text,
@@ -70,7 +71,7 @@ export const inlineStyles = {
     width: 112,
     height: 28,
     boxSizing: "border-box",
-    borderRadius: 6,
+    borderRadius: "var(--editor-control-radius, 6px)",
     border: `1px solid ${editorTheme.border}`,
     background: editorTheme.surface,
     color: editorTheme.text,
@@ -81,7 +82,7 @@ export const inlineStyles = {
   colorInput: {
     width: 30,
     height: 28,
-    borderRadius: 6,
+    borderRadius: "var(--editor-control-radius, 6px)",
     border: `1px solid ${editorTheme.border}`,
     background: editorTheme.surface,
     padding: 3,
@@ -90,7 +91,7 @@ export const inlineStyles = {
   select: {
     height: 28,
     boxSizing: "border-box",
-    borderRadius: 6,
+    borderRadius: "var(--editor-control-radius, 6px)",
     border: `1px solid ${editorTheme.border}`,
     background: editorTheme.surface,
     color: editorTheme.text,
@@ -105,7 +106,7 @@ export const inlineStyles = {
     alignItems: "center",
     justifyContent: "center",
     boxSizing: "border-box",
-    borderRadius: 6,
+    borderRadius: "var(--editor-control-radius, 6px)",
     border: `1px solid ${editorTheme.border}`,
     background: editorTheme.surface,
     color: editorTheme.text,
@@ -120,10 +121,10 @@ export const inlineStyles = {
     alignItems: "center",
     justifyContent: "center",
     boxSizing: "border-box",
-    borderRadius: 6,
+    borderRadius: "var(--editor-control-radius, 6px)",
     border: `1px solid ${editorTheme.primary}`,
     background: editorTheme.primary,
-    color: "#FFFFFF",
+    color: editorTheme.primaryForeground,
     padding: "0 9px",
     fontSize: 12,
     fontWeight: 900,
@@ -145,6 +146,6 @@ export const inlineStyles = {
     overflow: "auto",
     padding: 2,
     margin: 0,
-    background: "rgba(255,255,255,0.96)",
+    background: "var(--editor-surface, rgba(255,255,255,0.96))",
   },
 } satisfies Record<string, CSSProperties>;

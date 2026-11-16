@@ -409,6 +409,7 @@ export function TemplateV2HtmlSlidePreview({
     return (
       <div
         ref={containerRef}
+        data-slide-document
         className={`relative flex aspect-video w-full items-center justify-center bg-white text-xs text-gray-500 ${className}`}
         style={
           fixedSize
@@ -427,6 +428,7 @@ export function TemplateV2HtmlSlidePreview({
   return (
     <div
       ref={containerRef}
+      data-slide-document
       className={`relative w-full overflow-hidden bg-white ${className}`}
       style={
         fixedSize
