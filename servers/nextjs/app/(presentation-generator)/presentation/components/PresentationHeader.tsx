@@ -33,6 +33,7 @@ import {
 } from "@/utils/mixpanel";
 import { usePresentationUndoRedo } from "../hooks/PresentationUndoRedo";
 import ToolTip from "@/components/ToolTip";
+import { useEditorTheme } from "@/components/EditorThemeProvider";
 import {
   clearChatHtmlSelection,
   clearPresentationData,
@@ -119,6 +120,7 @@ const PresentationHeader = ({
 
   const pathname = usePathname();
   const dispatch = useDispatch();
+  const { theme: editorTheme } = useEditorTheme();
 
   const {
     presentationData,
@@ -468,7 +470,7 @@ const PresentationHeader = ({
 
   const ExportOptions = ({ mobile }: { mobile: boolean }) => (
     <div
-      className={` rounded-[18px] max-md:mt-4 ${mobile ? "" : "bg-white"}  p-5`}
+      className={`editor-export-panel rounded-[18px] max-md:mt-4 ${mobile ? "" : "bg-white"}  p-5`}
     >
       <p className="text-sm font-medium text-[#19001F]">Export as</p>
       <div className="my-[18px] h-[1px] bg-[#E8E8E8]" />
@@ -504,12 +506,12 @@ const PresentationHeader = ({
   const titleBlock = (
     <div
       className={cn(
-        "min-w-0 max-w-[min(640px,calc(100vw-12rem))] flex-1 transition-[box-shadow] duration-200",
+        "editor-title-block min-w-0 max-w-[min(640px,calc(100vw-12rem))] flex-1 transition-[box-shadow] duration-200",
         isEditingTitle && "relative z-[60]"
       )}
     >
       {isEditingTitle ? (
-        <div className="flex items-stretch w-[450px]  gap-0.5 rounded-[14px] border border-[#E4E2EB] bg-white pl-3.5 pr-1 py-1 shadow-[0_2px_12px_rgba(17,3,31,0.06)] ring-2 ring-[#5141e5]/15">
+        <div className="editor-title-edit flex items-stretch w-[450px]  gap-0.5 rounded-[14px] border border-[#E4E2EB] bg-white pl-3.5 pr-1 py-1 shadow-[0_2px_12px_rgba(17,3,31,0.06)] ring-2 ring-[#5141e5]/15">
           <input
             ref={titleInputRef}
             value={draftTitle}
@@ -527,7 +529,7 @@ const PresentationHeader = ({
               }
             }}
             placeholder="Presentation title"
-            className="min-w-0 flex-1 bg-transparent py-2 pr-2 font-syne text-base leading-tight text-[#101323] placeholder:text-[#101323]/35 outline-none border-0 focus:ring-0"
+            className="editor-title-input min-w-0 flex-1 bg-transparent py-2 pr-2 font-syne text-base leading-tight text-[#101323] placeholder:text-[#101323]/35 outline-none border-0 focus:ring-0"
             aria-label="Presentation title"
           />
           <div className="flex shrink-0 items-center gap-0.5 border-l border-[#EDECEC] pl-1 ml-0.5">
@@ -561,12 +563,12 @@ const PresentationHeader = ({
           onClick={beginTitleEdit}
           disabled={isStreaming || !presentationData}
           className={cn(
-            "group/title flex w-full min-w-0 items-center gap-2.5 rounded-[14px] px-3 py-2 text-left -mx-3 transition-colors",
+            "editor-title-button group/title flex w-full min-w-0 items-center gap-2.5 rounded-[14px] px-3 py-2 text-left -mx-3 transition-colors",
             "hover:bg-[#F6F6F9] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#5141e5] focus-visible:ring-offset-2",
             "disabled:pointer-events-none disabled:opacity-100 disabled:hover:bg-transparent"
           )}
         >
-          <h2 className="min-w-0 flex-1 font-syne text-lg w-[450px] leading-snug text-[#101323]">
+          <h2 className="editor-title-text min-w-0 flex-1 font-syne text-lg w-[450px] leading-snug text-[#101323]">
             <MarkdownRenderer
               content={presentationData?.title || "Presentation"}
               className="mb-0 min-w-0 overflow-hidden text-ellipsis line-clamp-1 text-sm text-[#101323] prose-p:my-0 prose-headings:my-0"
@@ -585,16 +587,18 @@ const PresentationHeader = ({
 
   return (
     <>
-      <div className="py-[18px] px-4 sticky top-0 bg-white z-50 shadow-sm font-syne flex justify-between items-center gap-4">
-        <div className="flex min-w-0 flex-1 items-center gap-3">
-          <img
-            onClick={() => {
-              router.push("/dashboard");
-            }}
-            src="/logo-with-bg.png"
-            alt=""
-            className="w-10 h-10 cursor-pointer object-contain"
-          />
+      <div className="editor-header py-[18px] px-4 sticky top-0 bg-white z-50 shadow-sm font-syne flex justify-between items-center gap-4">
+        <div className="editor-header-title-group flex min-w-0 flex-1 items-center gap-3">
+          {editorTheme !== "dsfr" && (
+            <img
+              onClick={() => {
+                router.push("/dashboard");
+              }}
+              src="/logo-with-bg.png"
+              alt=""
+              className="w-10 h-10 cursor-pointer object-contain"
+            />
+          )}
           {presentationData && !isStreaming && !isEditingTitle ? (
             <ToolTip content="Rename presentation">{titleBlock}</ToolTip>
           ) : (
@@ -603,7 +607,7 @@ const PresentationHeader = ({
          
         </div>
 
-        <div className="flex shrink-0 items-center gap-2.5">
+        <div className="editor-header-actions flex shrink-0 items-center gap-2.5">
           {generationMode === "smart" && generationMetrics ? (
             <StreamingGenerationMetrics metrics={generationMetrics} />
           ) : null}
@@ -626,7 +630,7 @@ const PresentationHeader = ({
                 onClick={toggleHtmlSelector}
                 aria-pressed={enableHtmlSelector}
                 className={cn(
-                  "hidden h-[38px] items-center gap-2 rounded-xl border px-3 font-syne text-xs font-semibold shadow-sm transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6D5DFB] focus-visible:ring-offset-2 xl:inline-flex",
+                  "editor-select-edit hidden h-[38px] items-center gap-2 rounded-xl border px-3 font-syne text-xs font-semibold shadow-sm transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6D5DFB] focus-visible:ring-offset-2 xl:inline-flex",
                   enableHtmlSelector
                     ? "border-[#CEC6FF] bg-[#F3F0FF] text-[#5141E5]"
                     : "border-[#E4E4E8] bg-white text-[#3D3D48] hover:border-[#D7D2F5] hover:bg-[#FAF9FF] hover:text-[#5141E5]"
@@ -654,7 +658,7 @@ const PresentationHeader = ({
               </button>
             </ToolTip>
           )}
-          <div className="flex items-center gap-2 bg-[#F6F6F9] px-3.5 h-[38px] border border-[#EDECEC] rounded-[80px]">
+          <div className="editor-history-controls flex items-center gap-2 bg-[#F6F6F9] px-3.5 h-[38px] border border-[#EDECEC] rounded-[80px]">
             <ToolTip content={
               canRegenerate
                 ? "Regenerate Presentation"
@@ -736,7 +740,7 @@ const PresentationHeader = ({
               aria-expanded={shortcutsDialogOpen}
               aria-keyshortcuts="?"
               data-testid="keyboard-shortcuts-btn"
-              className="inline-flex h-[38px] w-[38px] items-center justify-center rounded-full border border-[#EDECEC] bg-[#F6F6F9] text-[#101323] transition-colors hover:border-[#D8D3FE] hover:bg-[#F0EDFF] hover:text-[#6847F4] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#7A5AF8] focus-visible:ring-offset-2"
+              className="editor-icon-button inline-flex h-[38px] w-[38px] items-center justify-center rounded-full border border-[#EDECEC] bg-[#F6F6F9] text-[#101323] transition-colors hover:border-[#D8D3FE] hover:bg-[#F0EDFF] hover:text-[#6847F4] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#7A5AF8] focus-visible:ring-offset-2"
               onClick={() => setShortcutsDialogOpen(true)}
             >
               <Keyboard
@@ -750,8 +754,8 @@ const PresentationHeader = ({
           <Popover open={open} onOpenChange={setOpen}>
             <PopoverTrigger asChild>
               <button
-                className="flex  items-center gap-[7px] px-[18px] py-[11px] rounded-[53px] text-sm font-semibold text-[#101323]"
-                style={{
+                className="editor-export-button flex  items-center gap-[7px] px-[18px] py-[11px] rounded-[53px] text-sm font-semibold text-[#101323]"
+                style={editorTheme === "dsfr" ? undefined : {
                   background:
                     "linear-gradient(270deg, #D5CAFC 2.4%, #E3D2EB 27.88%, #F4DCD3 69.23%, #FDE4C2 100%)",
                 }}

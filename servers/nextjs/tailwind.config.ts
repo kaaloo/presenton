@@ -83,6 +83,7 @@ const config: Config = {
       fontFamily: {
         syne: ["var(--font-syne)"],
         manrope: ["var(--font-manrope)"],
+        editor: ["var(--editor-font-family, var(--font-syne))"],
       },
     },
   },

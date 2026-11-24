@@ -1,0 +1,466 @@
+@font-face {
+  font-family: "Marianne";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/marianne/Marianne-Regular.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Marianne";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("/fonts/marianne/Marianne-Medium.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Marianne";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("/fonts/marianne/Marianne-Bold.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Marianne";
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url("/fonts/marianne/Marianne-ExtraBold.woff2") format("woff2");
+}
+
+:root[data-editor-theme="dsfr"] {
+  --editor-font-family: "Marianne", Arial, sans-serif;
+  --editor-control-radius: 0.25rem;
+  --editor-toolbar-shadow: 0 6px 18px var(--editor-overlay);
+}
+
+:root[data-editor-theme="dsfr"][data-editor-scheme="light"] {
+  --editor-background: #f8f8f9;
+  --editor-surface: #ffffff;
+  --editor-surface-subtle: #f0f0f3;
+  --editor-text: #222631;
+  --editor-text-muted: #555e74;
+  --editor-primary: #3e5de7;
+  --editor-primary-hover: #2845c1;
+  --editor-primary-active: #223e9e;
+  --editor-primary-soft: #edf0ff;
+  --editor-primary-foreground: #ffffff;
+  --editor-border: #dfe2ea;
+  --editor-border-strong: #c1c7d3;
+  --editor-danger: #cf202d;
+  --editor-danger-soft: #ffedeb;
+  --editor-focus: #3e5de7;
+  --editor-overlay: #0f111773;
+
+  --background: 0 0% 100%;
+  --foreground: 224 18.1% 16.3%;
+  --card: 0 0% 100%;
+  --card-foreground: 224 18.1% 16.3%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 224 18.1% 16.3%;
+  --primary: 229 77.9% 57.5%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 230 100% 96.5%;
+  --secondary-foreground: 228.6 65.7% 45.7%;
+  --muted: 240 11.1% 94.7%;
+  --muted-foreground: 222.6 15.4% 39.4%;
+  --accent: 230 100% 96.5%;
+  --accent-foreground: 228.6 65.7% 45.7%;
+  --destructive: 355.5 73.2% 46.9%;
+  --destructive-foreground: 0 0% 100%;
+  --border: 223.6 20.8% 89.6%;
+  --input: 223.6 20.8% 89.6%;
+  --ring: 229 77.9% 57.5%;
+  --radius: 0.25rem;
+}
+
+:root[data-editor-theme="dsfr"][data-editor-scheme="dark"] {
+  --editor-background: #0f1117;
+  --editor-surface: #181b24;
+  --editor-surface-subtle: #222631;
+  --editor-text: #f6f8f9;
+  --editor-text-muted: #b2b9c7;
+  --editor-primary: #90a7ff;
+  --editor-primary-hover: #a2b6ff;
+  --editor-primary-active: #c8d3ff;
+  --editor-primary-soft: #172446;
+  --editor-primary-foreground: #0f1117;
+  --editor-border: #3f4759;
+  --editor-border-strong: #626a80;
+  --editor-danger: #fb5759;
+  --editor-danger-soft: #410003;
+  --editor-focus: #a2b6ff;
+  --editor-overlay: #000000b2;
+
+  --background: 225 20% 11.8%;
+  --foreground: 200 20% 97.1%;
+  --card: 225 20% 11.8%;
+  --card-foreground: 200 20% 97.1%;
+  --popover: 225 20% 11.8%;
+  --popover-foreground: 200 20% 97.1%;
+  --primary: 227.6 100% 78.2%;
+  --primary-foreground: 225 21.1% 7.5%;
+  --secondary: 223.4 50.5% 18.2%;
+  --secondary-foreground: 200 20% 97.1%;
+  --muted: 225 20% 11.8%;
+  --muted-foreground: 220 15.8% 73.9%;
+  --accent: 223.4 50.5% 18.2%;
+  --accent-foreground: 200 20% 97.1%;
+  --destructive: 359.3 95.3% 66.3%;
+  --destructive-foreground: 225 21.1% 7.5%;
+  --border: 221.5 17.1% 29.8%;
+  --input: 221.5 17.1% 29.8%;
+  --ring: 227.6 100% 78.2%;
+  --radius: 0.25rem;
+}
+
+/* Slide documents keep their own template theme, including semantic Tailwind
+   variables that may be used by generated HTML or template runtimes. */
+:root[data-editor-theme="dsfr"] [data-slide-document] {
+  color: hsl(240 10% 3.9%);
+  --background: 0 0% 100%;
+  --foreground: 240 10% 3.9%;
+  --card: 0 0% 100%;
+  --card-foreground: 240 10% 3.9%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 240 10% 3.9%;
+  --primary: 240 5.9% 10%;
+  --primary-foreground: 0 0% 98%;
+  --secondary: 240 4.8% 95.9%;
+  --secondary-foreground: 240 5.9% 10%;
+  --muted: 240 4.8% 95.9%;
+  --muted-foreground: 240 3.8% 46.1%;
+  --accent: 240 4.8% 95.9%;
+  --accent-foreground: 240 5.9% 10%;
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 0 0% 98%;
+  --border: 240 5.9% 90%;
+  --input: 240 5.9% 90%;
+  --ring: 240 10% 3.9%;
+  --radius: 0.5rem;
+}
+
+:root[data-editor-theme="dsfr"] .editor-typography,
+:root[data-editor-theme="dsfr"] .editor-button,
+:root[data-editor-theme="dsfr"] .editor-input,
+:root[data-editor-theme="dsfr"] .editor-select-trigger,
+:root[data-editor-theme="dsfr"] .editor-dialog,
+:root[data-editor-theme="dsfr"] .editor-popover,
+:root[data-editor-theme="dsfr"] .editor-dropdown,
+:root[data-editor-theme="dsfr"] .editor-select-content,
+:root[data-editor-theme="dsfr"] .editor-tooltip {
+  font-family: var(--editor-font-family);
+  letter-spacing: 0;
+}
+
+:root[data-editor-theme="dsfr"] .editor-dialog-overlay {
+  background: var(--editor-overlay);
+  backdrop-filter: none;
+}
+
+/* Overlay content often has its own hard-coded foreground. Reset the whole
+   typographic surface first, then let semantic variants below restore primary,
+   muted, disabled, and destructive states. */
+:root[data-editor-theme="dsfr"]
+  :is(.editor-dialog, .editor-popover, .editor-dropdown, .editor-select-content, .editor-actions, .editor-panel, .editor-chat, .editor-floating-toolbar, .editor-slide-actions)
+  :where(
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    p,
+    span,
+    a,
+    label,
+    div,
+    button,
+    strong,
+    small,
+    li,
+    input,
+    textarea,
+    select
+  ):where(:not([data-slide-document], [data-slide-document] *)) {
+  color: var(--editor-text);
+}
+
+:root[data-editor-theme="dsfr"]
+  :is(.editor-dialog, .editor-popover, .editor-dropdown, .editor-select-content, .editor-actions, .editor-panel, .editor-chat, .editor-floating-toolbar, .editor-slide-actions)
+  .bg-white {
+  background: var(--editor-surface);
+}
+
+:root[data-editor-theme="dsfr"]
+  :is(.editor-dialog, .editor-popover, .editor-dropdown, .editor-select-content, .editor-actions, .editor-panel, .editor-chat, .editor-floating-toolbar, .editor-slide-actions)
+  :is(
+    .bg-\[\#E4E7EC\],
+    .bg-\[\#E6E6E6\],
+    .bg-\[\#E7E8EC\],
+    .bg-\[\#E8E8E8\],
+    .bg-\[\#EDECEC\],
+    .bg-\[\#EDEEEF\],
+    .bg-\[\#F1F5F9\],
+    .bg-\[\#F3F4F7\],
+    .bg-\[\#F6F6F9\],
+    .bg-\[\#F7F6F9\],
+    .bg-\[\#F7F7F8\],
+    .bg-\[\#F7F7FA\],
+    .bg-\[\#F8F8FA\],
+    .bg-\[\#F8FAFC\],
+    .bg-\[\#F9FAFB\],
+    .bg-\[\#FAFAFA\],
+    .bg-\[\#FAFAFB\],
+    .bg-\[\#FCFCFD\],
+    .bg-\[\#FEFEFF\],
+    .bg-\[\#FFFEFF\]
+  ) {
+  background: var(--editor-surface-subtle);
+}
+
+:root[data-editor-theme="dsfr"]
+  :is(.editor-dialog, .editor-popover, .editor-dropdown, .editor-select-content, .editor-actions, .editor-panel, .editor-chat, .editor-floating-toolbar, .editor-slide-actions)
+  :is(
+    .bg-\[\#DBEAFE\],
+    .bg-\[\#E4DFFF\],
+    .bg-\[\#EBE9FE\],
+    .bg-\[\#EFF6FF\],
+    .bg-\[\#F0EDFF\],
+    .bg-\[\#F1EFFF\],
+    .bg-\[\#F3F0FF\],
+    .bg-\[\#F4F3FF\],
+    .bg-\[\#F5F3FF\],
+    .bg-\[\#F7F5FF\],
+    .bg-\[\#F8F6FF\],
+    .bg-\[\#FAF9FF\],
+    .bg-\[\#FAFAFF\],
+    .bg-\[\#FBFAFF\]
+  ) {
+  background: var(--editor-primary-soft);
+}
+
+:root[data-editor-theme="dsfr"]
+  :is(.editor-dialog, .editor-popover, .editor-dropdown, .editor-select-content, .editor-actions, .editor-panel, .editor-chat, .editor-floating-toolbar, .editor-slide-actions)
+  :is(.bg-\[\#FEF3F2\], .bg-\[\#FFFBFA\]) {
+  background: var(--editor-danger-soft);
+}
+
+:root[data-editor-theme="dsfr"]
+  :is(.editor-dialog, .editor-popover, .editor-dropdown, .editor-select-content, .editor-actions, .editor-panel, .editor-chat, .editor-floating-toolbar, .editor-slide-actions)
+  :is(
+    .hover\:bg-\[\#DBEAFE\],
+    .hover\:bg-\[\#E4DFFF\],
+    .hover\:bg-\[\#EBE9FE\],
+    .hover\:bg-\[\#F0EDFF\],
+    .hover\:bg-\[\#F1EFFF\],
+    .hover\:bg-\[\#F3F0FF\],
+    .hover\:bg-\[\#F4F3FF\],
+    .hover\:bg-\[\#F5F3FF\],
+    .hover\:bg-\[\#F7F5FF\],
+    .hover\:bg-\[\#F8F6FF\],
+    .hover\:bg-\[\#FAF9FF\],
+    .hover\:bg-\[\#FAFAFF\],
+    .hover\:bg-\[\#FBFAFF\],
+    .focus\:bg-\[\#F6F6F9\],
+    .focus\:bg-\[\#F7F6F9\]
+  ):is(:hover, :focus) {
+  background: var(--editor-primary-soft);
+}
+
+:root[data-editor-theme="dsfr"]
+  :is(.editor-dialog, .editor-popover, .editor-dropdown, .editor-select-content, .editor-actions, .editor-panel, .editor-chat, .editor-floating-toolbar, .editor-slide-actions)
+  :is(
+    .hover\:bg-\[\#E4E7EC\],
+    .hover\:bg-\[\#F1F5F9\],
+    .hover\:bg-\[\#F6F6F9\],
+    .hover\:bg-\[\#F7F6F9\],
+    .hover\:bg-\[\#F7F7F8\],
+    .hover\:bg-\[\#F8F8FA\],
+    .hover\:bg-\[\#F9FAFB\],
+    .hover\:bg-\[\#FAFAFA\],
+    .hover\:bg-gray-50
+  ):hover {
+  background: var(--editor-surface-subtle);
+}
+
+:root[data-editor-theme="dsfr"]
+  :is(.editor-dialog, .editor-popover, .editor-dropdown, .editor-select-content, .editor-actions, .editor-panel, .editor-chat, .editor-floating-toolbar, .editor-slide-actions)
+  .focus\:bg-\[\#FEF3F2\]:focus {
+  background: var(--editor-danger-soft);
+}
+
+:root[data-editor-theme="dsfr"] .editor-button {
+  border-radius: var(--editor-control-radius);
+  box-shadow: none;
+  font-weight: 500;
+}
+
+:root[data-editor-theme="dsfr"] .editor-button--default {
+  border: 1px solid var(--editor-primary);
+  background: var(--editor-primary);
+  color: var(--editor-primary-foreground);
+}
+
+:root[data-editor-theme="dsfr"] .editor-button--default:hover {
+  border-color: var(--editor-primary-hover);
+  background: var(--editor-primary-hover);
+}
+
+:root[data-editor-theme="dsfr"] .editor-button--default:active {
+  border-color: var(--editor-primary-active);
+  background: var(--editor-primary-active);
+}
+
+:root[data-editor-theme="dsfr"] .editor-button--outline,
+:root[data-editor-theme="dsfr"] .editor-button--secondary {
+  border: 1px solid var(--editor-primary);
+  background: var(--editor-surface);
+  color: var(--editor-primary);
+  box-shadow: none;
+}
+
+:root[data-editor-theme="dsfr"] .editor-button--outline:hover,
+:root[data-editor-theme="dsfr"] .editor-button--secondary:hover {
+  background: var(--editor-primary-soft);
+  color: var(--editor-primary-hover);
+}
+
+:root[data-editor-theme="dsfr"] .editor-button--ghost {
+  background: transparent;
+  color: var(--editor-primary);
+}
+
+:root[data-editor-theme="dsfr"] .editor-button--ghost:hover {
+  background: var(--editor-primary-soft);
+  color: var(--editor-primary-hover);
+}
+
+:root[data-editor-theme="dsfr"] .editor-button--destructive {
+  border: 1px solid var(--editor-danger);
+  background: var(--editor-danger);
+  color: #ffffff;
+  box-shadow: none;
+}
+
+:root[data-editor-theme="dsfr"] .editor-button--destructive:hover {
+  background: var(--editor-danger);
+  opacity: 0.88;
+}
+
+:root[data-editor-theme="dsfr"] .editor-input,
+:root[data-editor-theme="dsfr"] .editor-select-trigger {
+  border-color: var(--editor-border-strong);
+  border-radius: var(--editor-control-radius);
+  background: var(--editor-surface);
+  color: var(--editor-text);
+  box-shadow: none;
+}
+
+:root[data-editor-theme="dsfr"] .editor-dialog,
+:root[data-editor-theme="dsfr"] .editor-popover,
+:root[data-editor-theme="dsfr"] .editor-dropdown,
+:root[data-editor-theme="dsfr"] .editor-select-content {
+  border: 1px solid var(--editor-border);
+  border-radius: var(--editor-control-radius);
+  background: var(--editor-surface);
+  color: var(--editor-text);
+  box-shadow: 0 6px 18px var(--editor-overlay);
+}
+
+:root[data-editor-theme="dsfr"] .editor-dialog .editor-dialog-title {
+  color: var(--editor-text);
+}
+
+:root[data-editor-theme="dsfr"] .editor-dialog .editor-dialog-description {
+  color: var(--editor-text-muted);
+}
+
+:root[data-editor-theme="dsfr"] .editor-popover .text-\[\#19001F\],
+:root[data-editor-theme="dsfr"] .editor-popover .text-black {
+  color: var(--editor-text);
+}
+
+:root[data-editor-theme="dsfr"] .editor-popover .editor-export-panel {
+  background: var(--editor-surface);
+}
+
+:root[data-editor-theme="dsfr"] .editor-dropdown .editor-component-menu-item {
+  color: var(--editor-text);
+}
+
+:root[data-editor-theme="dsfr"]
+  .editor-dropdown
+  .editor-component-menu-item:hover,
+:root[data-editor-theme="dsfr"]
+  .editor-dropdown
+  .editor-component-menu-item:focus {
+  background: var(--editor-primary-soft);
+  color: var(--editor-text);
+}
+
+:root[data-editor-theme="dsfr"]
+  .editor-dropdown
+  .editor-component-menu-item[data-disabled] {
+  background: transparent;
+  color: var(--editor-text-muted);
+}
+
+:root[data-editor-theme="dsfr"]
+  .editor-dropdown
+  .editor-component-menu-shortcut {
+  background: var(--editor-surface-subtle);
+  color: var(--editor-text-muted);
+}
+
+:root[data-editor-theme="dsfr"] .editor-tooltip {
+  border-radius: var(--editor-control-radius);
+  background: var(--editor-text);
+  color: var(--editor-surface);
+}
+
+:root[data-editor-theme="dsfr"] .editor-button:focus-visible,
+:root[data-editor-theme="dsfr"] .editor-input:focus-visible,
+:root[data-editor-theme="dsfr"] .editor-select-trigger:focus,
+:root[data-editor-theme="dsfr"] .editor-select-trigger:focus-visible,
+:root[data-editor-theme="dsfr"] .editor-dialog :focus-visible,
+:root[data-editor-theme="dsfr"] .editor-popover :focus-visible,
+:root[data-editor-theme="dsfr"] .editor-dropdown :focus-visible,
+:root[data-editor-theme="dsfr"] .editor-select-content :focus-visible {
+  outline: 2px solid var(--editor-focus);
+  outline-offset: 2px;
+  box-shadow: none;
+}
+
+:root[data-editor-theme="dsfr"] [data-sonner-toast][data-styled="true"] {
+  border: 1px solid var(--editor-border) !important;
+  border-radius: var(--editor-control-radius) !important;
+  background: var(--editor-surface) !important;
+  color: var(--editor-text) !important;
+  box-shadow: 0 6px 18px var(--editor-overlay) !important;
+  backdrop-filter: none !important;
+}
+
+:root[data-editor-theme="dsfr"]
+  [data-sonner-toast][data-styled="true"]
+  [data-title],
+:root[data-editor-theme="dsfr"]
+  [data-sonner-toast][data-styled="true"]
+  [data-description] {
+  font-family: var(--editor-font-family) !important;
+  letter-spacing: 0 !important;
+}
+
+:root[data-editor-theme="dsfr"]
+  [data-sonner-toast][data-styled="true"]
+  [data-title] {
+  color: var(--editor-text) !important;
+}
+
+:root[data-editor-theme="dsfr"]
+  [data-sonner-toast][data-styled="true"]
+  [data-description] {
+  color: var(--editor-text-muted) !important;
+}

@@ -168,7 +168,7 @@ function ComponentActionsMenuItem({
       onSelect={onClick}
       style={{ cursor: disabled ? "not-allowed" : "pointer" }}
       className={cn(
-        "flex w-full cursor-default items-center gap-2 rounded-none px-4 py-2.5 text-left font-syne text-[14px] font-normal leading-normal tracking-[0.14px] text-[#191919] outline-none hover:bg-[#F6F6F9] focus:bg-[#F6F6F9] focus:text-[#191919]",
+        "editor-component-menu-item flex w-full cursor-default items-center gap-2 rounded-none px-4 py-2.5 text-left font-syne text-[14px] font-normal leading-normal tracking-[0.14px] text-[#191919] outline-none hover:bg-[#F6F6F9] focus:bg-[#F6F6F9] focus:text-[#191919]",
         strong && "text-black",
         disabled &&
           "cursor-not-allowed text-[#A0A3AD] hover:bg-transparent focus:bg-transparent data-[disabled]:opacity-100",
@@ -179,7 +179,7 @@ function ComponentActionsMenuItem({
       {shortcut ? (
         <span
           className={cn(
-            "ml-auto inline-flex shrink-0 items-center justify-center whitespace-nowrap rounded-[6px] bg-[#F6F6F9] px-1.5 py-1 font-manrope text-[12px] font-normal leading-none tracking-[0.14px] text-[#808080]",
+            "editor-component-menu-shortcut ml-auto inline-flex shrink-0 items-center justify-center whitespace-nowrap rounded-[6px] bg-[#F6F6F9] px-1.5 py-1 font-manrope text-[12px] font-normal leading-none tracking-[0.14px] text-[#808080]",
             disabled && "bg-[#F7F7FA] text-[#B0B3BB]",
           )}
         >

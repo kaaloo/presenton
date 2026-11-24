@@ -1,0 +1,331 @@
+:root[data-editor-theme="dsfr"] .editor-page {
+  background: var(--editor-background);
+  color: var(--editor-text);
+}
+
+:root[data-editor-theme="dsfr"] .editor-header {
+  border-bottom: 1px solid var(--editor-border);
+  background: var(--editor-surface);
+  box-shadow: none;
+  color: var(--editor-text);
+  font-family: var(--editor-font-family);
+}
+
+:root[data-editor-theme="dsfr"] .editor-header-title-group,
+:root[data-editor-theme="dsfr"] .editor-header-actions {
+  min-width: 0;
+}
+
+:root[data-editor-theme="dsfr"] .editor-title-block {
+  max-width: 100%;
+}
+
+:root[data-editor-theme="dsfr"] .editor-title-text {
+  color: var(--editor-text);
+  font-family: var(--editor-font-family);
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0;
+}
+
+:root[data-editor-theme="dsfr"]
+  .editor-title-text
+  :where(h1, h2, h3, h4, h5, h6, p, span, strong, div) {
+  color: inherit;
+}
+
+:root[data-editor-theme="dsfr"] .editor-title-button > svg {
+  color: var(--editor-text-muted);
+}
+
+:root[data-editor-theme="dsfr"] .editor-title-button {
+  border-radius: var(--editor-control-radius);
+  color: var(--editor-text);
+}
+
+:root[data-editor-theme="dsfr"] .editor-title-button:hover {
+  background: var(--editor-surface-subtle);
+}
+
+:root[data-editor-theme="dsfr"] .editor-title-edit {
+  width: 100%;
+  max-width: 100%;
+  border-color: var(--editor-primary);
+  border-radius: var(--editor-control-radius);
+  background: var(--editor-surface);
+  box-shadow: none;
+}
+
+:root[data-editor-theme="dsfr"] .editor-title-edit:focus-within {
+  outline: 2px solid var(--editor-focus);
+  outline-offset: 2px;
+}
+
+:root[data-editor-theme="dsfr"] .editor-title-input {
+  color: var(--editor-text);
+  font-family: var(--editor-font-family);
+}
+
+:root[data-editor-theme="dsfr"] .editor-title-input::placeholder {
+  color: var(--editor-text-muted);
+}
+
+:root[data-editor-theme="dsfr"] .editor-history-controls {
+  border-color: var(--editor-border);
+  border-radius: var(--editor-control-radius);
+  background: var(--editor-surface-subtle);
+  color: var(--editor-text);
+}
+
+:root[data-editor-theme="dsfr"] .editor-history-controls button {
+  border-radius: var(--editor-control-radius);
+  color: var(--editor-text);
+}
+
+:root[data-editor-theme="dsfr"] .editor-history-controls button:hover {
+  background: var(--editor-primary-soft);
+  color: var(--editor-primary);
+}
+
+:root[data-editor-theme="dsfr"] .editor-icon-button {
+  border-color: var(--editor-border);
+  border-radius: var(--editor-control-radius);
+  background: var(--editor-surface-subtle);
+  color: var(--editor-text);
+}
+
+:root[data-editor-theme="dsfr"] .editor-icon-button:hover {
+  border-color: var(--editor-primary);
+  background: var(--editor-primary-soft);
+  color: var(--editor-primary);
+}
+
+:root[data-editor-theme="dsfr"] .editor-export-button {
+  border: 1px solid var(--editor-primary);
+  border-radius: var(--editor-control-radius);
+  background: var(--editor-primary);
+  color: var(--editor-primary-foreground);
+  font-weight: 500;
+}
+
+:root[data-editor-theme="dsfr"] .editor-export-button:hover {
+  border-color: var(--editor-primary-hover);
+  background: var(--editor-primary-hover);
+}
+
+:root[data-editor-theme="dsfr"] .editor-export-button:active {
+  border-color: var(--editor-primary-active);
+  background: var(--editor-primary-active);
+}
+
+:root[data-editor-theme="dsfr"] .editor-select-edit {
+  border-color: var(--editor-primary);
+  border-radius: var(--editor-control-radius);
+  background: var(--editor-surface);
+  color: var(--editor-primary);
+  box-shadow: none;
+}
+
+:root[data-editor-theme="dsfr"] .editor-select-edit:hover {
+  background: var(--editor-primary-soft);
+  color: var(--editor-primary-hover);
+}
+
+:root[data-editor-theme="dsfr"] .editor-select-edit > span:first-child {
+  border-radius: var(--editor-control-radius);
+  background: var(--editor-primary);
+  color: var(--editor-primary-foreground);
+}
+
+:root[data-editor-theme="dsfr"]
+  :is(
+    .editor-title-button,
+    .editor-icon-button,
+    .editor-export-button,
+    .editor-select-edit,
+    .editor-add-slide,
+    .editor-mobile-assistant,
+    .editor-action-button,
+    .editor-send-button
+  ):focus-visible {
+  outline: 2px solid var(--editor-focus);
+  outline-offset: 2px;
+  box-shadow: none;
+}
+
+:root[data-editor-theme="dsfr"] .editor-slide-rail {
+  border-right: 1px solid var(--editor-border);
+  background: var(--editor-surface);
+}
+
+:root[data-editor-theme="dsfr"] .editor-thumbnail {
+  border: 1px solid var(--editor-border);
+  border-radius: var(--editor-control-radius);
+  background: #ffffff;
+  box-shadow: none;
+}
+
+:root[data-editor-theme="dsfr"] .editor-thumbnail--selected {
+  border-color: var(--editor-primary);
+  box-shadow: 0 0 0 2px var(--editor-primary-soft);
+}
+
+:root[data-editor-theme="dsfr"] .editor-thumbnail-index {
+  color: var(--editor-text-muted);
+}
+
+:root[data-editor-theme="dsfr"]
+  .editor-thumbnail-index:has(+ .editor-thumbnail--selected) {
+  color: var(--editor-primary);
+}
+
+:root[data-editor-theme="dsfr"] .editor-add-slide {
+  border-radius: var(--editor-control-radius);
+  color: var(--editor-primary);
+}
+
+:root[data-editor-theme="dsfr"] .editor-add-slide:hover {
+  background: var(--editor-primary-soft);
+  opacity: 1;
+}
+
+:root[data-editor-theme="dsfr"] .editor-slide-actions {
+  border-color: var(--editor-border);
+  border-radius: var(--editor-control-radius);
+  background: var(--editor-surface);
+  box-shadow: 0 2px 14px var(--editor-overlay);
+}
+
+:root[data-editor-theme="dsfr"] .editor-slide-actions svg,
+:root[data-editor-theme="dsfr"] .editor-slide-actions svg * {
+  color: var(--editor-text);
+  stroke: currentColor;
+}
+
+:root[data-editor-theme="dsfr"] .editor-action-panel {
+  border-left-color: var(--editor-border);
+  background: var(--editor-surface);
+  box-shadow: -12px 0 32px var(--editor-overlay);
+}
+
+:root[data-editor-theme="dsfr"] .editor-action-rail {
+  border-left: 1px solid var(--editor-border);
+  background: var(--editor-surface);
+}
+
+:root[data-editor-theme="dsfr"]
+  :is(.editor-actions, .editor-panel, .editor-chat, .editor-floating-toolbar) {
+  border: 1px solid var(--editor-border);
+  border-radius: var(--editor-control-radius);
+  background: var(--editor-surface);
+  color: var(--editor-text);
+}
+
+:root[data-editor-theme="dsfr"]
+  :is(.editor-actions, .editor-panel, .editor-chat, .editor-floating-toolbar)
+  :where(input, textarea, select)::placeholder {
+  color: var(--editor-text-muted);
+}
+
+:root[data-editor-theme="dsfr"]
+  :is(.editor-actions, .editor-panel, .editor-chat)
+  :is(.bg-white\/95, .bg-white\/90) {
+  background: var(--editor-surface);
+}
+
+:root[data-editor-theme="dsfr"] .editor-action-button {
+  border-radius: var(--editor-control-radius);
+  color: var(--editor-text-muted);
+}
+
+:root[data-editor-theme="dsfr"] .editor-action-button:hover {
+  background: var(--editor-primary-soft);
+  color: var(--editor-primary);
+}
+
+:root[data-editor-theme="dsfr"] .editor-action-button[aria-pressed="true"] {
+  background: var(--editor-primary-soft);
+  color: var(--editor-primary);
+}
+
+:root[data-editor-theme="dsfr"] .editor-action-button > span {
+  border-radius: var(--editor-control-radius);
+}
+
+:root[data-editor-theme="dsfr"]
+  .editor-action-button[aria-pressed="true"]
+  > span:first-child {
+  border-color: var(--editor-primary);
+  background: var(--editor-primary-soft);
+  color: var(--editor-primary);
+  box-shadow: none !important;
+}
+
+:root[data-editor-theme="dsfr"] .editor-mobile-assistant {
+  border-color: var(--editor-primary);
+  border-radius: var(--editor-control-radius);
+  background: var(--editor-primary);
+  color: var(--editor-primary-foreground);
+  box-shadow: 0 6px 18px var(--editor-overlay);
+}
+
+:root[data-editor-theme="dsfr"] .editor-mobile-assistant:hover {
+  border-color: var(--editor-primary-hover);
+  background: var(--editor-primary-hover);
+}
+
+:root[data-editor-theme="dsfr"] .editor-send-button {
+  border-radius: var(--editor-control-radius);
+  color: var(--editor-primary-foreground);
+}
+
+:root[data-editor-theme="dsfr"] .editor-send-button:disabled {
+  background: var(--editor-surface-subtle) !important;
+  color: var(--editor-text-muted) !important;
+}
+
+:root[data-editor-theme="dsfr"] .editor-send-button > svg {
+  color: inherit;
+}
+
+@media (width <= 640px) {
+  :root[data-editor-theme="dsfr"] .editor-header {
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 12px;
+  }
+
+  :root[data-editor-theme="dsfr"] .editor-header-title-group {
+    order: 2;
+    flex: 1 1 100%;
+  }
+
+  :root[data-editor-theme="dsfr"] .editor-header-actions {
+    order: 1;
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 8px;
+  }
+
+  :root[data-editor-theme="dsfr"] .editor-title-block,
+  :root[data-editor-theme="dsfr"] .editor-title-text,
+  :root[data-editor-theme="dsfr"] .editor-title-edit {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  :root[data-editor-theme="dsfr"] .editor-title-button {
+    margin: 0;
+  }
+
+  :root[data-editor-theme="dsfr"] .editor-history-controls {
+    padding-right: 8px;
+    padding-left: 8px;
+  }
+
+  :root[data-editor-theme="dsfr"] .editor-export-button {
+    padding-right: 12px;
+    padding-left: 12px;
+  }
+}

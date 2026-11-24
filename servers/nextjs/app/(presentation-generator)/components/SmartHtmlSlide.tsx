@@ -175,6 +175,7 @@ function LinuxInPageSmartHtmlSlide({
   return (
     <div
       ref={containerRef}
+      data-slide-document
       aria-busy={showLoader ? isLoading : undefined}
       className="relative w-full overflow-hidden bg-white"
       style={{
@@ -244,6 +245,7 @@ function IframeSmartHtmlSlide({
   return (
     <div
       ref={containerRef}
+      data-slide-document
       aria-busy={showLoader ? isLoading : undefined}
       className="relative w-full overflow-hidden bg-white"
       style={{
